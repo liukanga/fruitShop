@@ -1,0 +1,31 @@
+<mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
+    <resultMap id="fruitMap" type="com.zcy.fruitshop.bean.Fruit">
+        <result column="id" property="id"/>
+        <result column="name" property="username"/>
+        <result column="variety" property="variety"/>
+        <result column="gmt_created" property="gmtCreated"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryFruitByName" parameterType="java.lang.String" resultMap="fruitMap">
+        select * from fruit where name=#{name}
+    </select>
+
+    <insert id="addFruit" parameterType="com.zcy.fruitshop.bean.Fruit" useGeneratedKeys="true" keyProperty="id">
+        insert into fruit(name, variety, gmt_created, gmt_modified) values(#{name}, now(), now())
+    </insert>
+
+    <update id="updateFruit" parameterType="com.zcy.fruitshop.bean.Fruit">
+        update fruit set name=#{name}, gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteFruitById" parameterType="java.lang.Long">
+        delete from fruit where id=#{id}
+    </delete>
+
+    <select id="queryFruitsByVariety" parameterType="java.lang.String" resultMap="fruitMap">
+        select * from fruit where variety=#{variety}
+    </select>
+
+
+</mapper>
