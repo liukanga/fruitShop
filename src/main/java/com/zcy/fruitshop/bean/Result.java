@@ -9,6 +9,8 @@ public class Result<T>{
 
     private String message;
 
+    private boolean isSuccess;
+
     private T data;
 
 }
