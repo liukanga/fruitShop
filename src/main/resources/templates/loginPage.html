@@ -2,17 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>水果商店系统登录</title>
+    <title>高校水果商店登录页面</title>
+    <!--<link rel="stylesheet" href="../static/css/login.css" />
+    <script language="JavaScript" src="../static/js/jquery-3.6.0.js"></script>-->
+    <link rel="stylesheet" href="/css/login.css" />
+    <script language="JavaScript" src="/js/jquery-3.6.0.js"></script>
 </head>
-<body>
-    <div>
-        <p>高校水果预订系统</p>
+<!--<body background="../static/images/login-bg.jpg">-->
+<body background="/images/login-bg.jpg">
+
+    <div class="login-contain">
+        <div>
+            <span>高校水果商店</span>
+        </div>
+        <div class="login-form">
+            <div class="indiv">
+                <div class="txt">账号：</div>
+                <input type="text" id="aid" placeholder="请输入账号" />
+            </div>
+            <div class="indiv">
+                <div class="txt">密码：</div>
+                <input type="password" id="password" placeholder="请输入密码" />
+            </div>
+            <div class="indiv">
+                <select id="status">
+                    <option value="0">请选择您的身份</option>
+                    <option value="1">网站管理员</option>
+                    <option value="2">商家</option>
+                    <option value="3">顾客</option>
+                </select>
+            </div>
+
+            <div class="remember">
+                <div class="checkbox">
+                    <input type="checkbox" name="" checked=""><span>记住密码</span>
+                </div>
+                <div class="regb">
+                    <a href="/user/reg">没有账户？点击注册</a>
+                </div>
+            </div>
+            <div class="indiv">
+                <button class="login-btn" type="button">登录</button>
+            </div>
+        </div>
     </div>
-    <div>
-        <scan>账号：</scan><input type="text" name="accountId" />
-        <scan>密码：</scan><input type="password" name="password" />
-        <button>登录</button>
+
+    <div class="copyright">
+        <p>© 2021 <a href="/user/loginPage">Fantasy Novel Reading Website</a>. All rights reserved | Design by  <a href="https://blog.csdn.net/John_Mark?spm=1011.2124.3001.5343" target="_blank"> liuziqing </a></p>
     </div>
+
+    <script type="text/javascript" src="/js/login.js" ></script>
 
 </body>
 </html>

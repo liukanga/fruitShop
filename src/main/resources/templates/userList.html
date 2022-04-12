@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="用户列表"></title>
+    <script language="javascript" src="/js/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="/css/userList.css">
+</head>
+<body background="/images/login-bg.jpg">
+
+    <header>
+        <div>
+            <div class="cUser" onclick="switchTo(1)">用户管理</div>
+            <div class="downLine" th:if="${hNo} eq 1"></div>
+        </div>
+        <div>
+            <div class="cNovel" onclick="switchTo(2)">小说管理</div>
+            <div class="downLine" th:if="${hNo} eq 2"></div>
+        </div>
+        <div>
+            <div class="ccUser" th:text="|您好！${currentUser.name}|"></div>
+            <input type=hidden id="cUserId" th:value="${currentUser.id}" />
+            <div class="cDetails" onclick="switchTo(3)">个人信息</div>
+            <div class="signOut" onclick="switchTo(4)">退出</div>
+            <div class="downLine" th:if="${hNo} eq 3"></div>
+        </div>
+    </header>
+    <main>
+        <div class="ttl" th:if="${currentUser.status} eq 1">用户列表</div>
+        <div class="ttl" th:unless="${currentUser.status} eq 1">作者列表</div>
+        <div class="splitLine"></div>
+        <div class="list">
+            <div style="font-weight: 700">用户名</div>
+            <div style="font-weight: 700" title="等级说明：&#13;青铜级（阅读或者写作时长<=1年）&#10;白银级（阅读或者写作时长1~3年）&#10;黄金级（阅读或者写作时长3~5年）&#10;铂金级（阅读或者写作时长5~8年）&#10;钻石级（阅读或者写作时长8~10年）&#10;大师级（阅读或者写作时长>=10年）">等级</div>
+            <div style="font-weight: 700">身份</div>
+            <div style="font-weight: 700">简介</div>
+            <div th:if="${currentUser.status} eq 1" style="font-weight: 700">操作</div>
+        </div>
+        <div class="list" th:each="user:${userList}">
+            <div class="name" th:text="${user.name}"></div>
+            <div class="duration" th:if="${user.duration}<1">青铜级</div>
+            <div class="duration" th:if="${user.duration}>=1 and ${user.duration}<3">白银级</div>
+            <div class="duration" th:if="${user.duration}>=3 and ${user.duration}<5">黄金级</div>
+            <div class="duration" th:if="${user.duration}>=5 and ${user.duration}<8">铂金级</div>
+            <div class="duration" th:if="${user.duration}>=8 and ${user.duration}<10">钻石级</div>
+            <div class="duration" th:if="${user.duration}>=10">大师级</div>
+            <div class="status" th:if="${user.status} eq 2">作者</div>
+            <div class="status" th:if="${user.status} eq 3">读者</div>
+            <div class="details" th:text="${user.details}"></div>
+            <div th:if="${currentUser.status} eq 1">
+                <button>修改</button>
+                <button>删除</button>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="num">
+        <div th:each="i:${#numbers.sequence(1, pageObj.totalPage)}" class="paging-area">
+            <a th:unless="${pageObj.pageNum == (i - 1)}" th:href="'/user/toUserList?pageNo=' + ${i}" th:text="${i}" ></a>
+            <div th:if="${pageObj.pageNum == (i - 1)}" th:text="${i}" ></div>
+        </div>
+        <div>
+            <button>上一页</button>
+            <button>下一页</button>
+        </div>
+        <div th:text="|当前在第 ${pageNo} 页|"></div>
+    </div>
+
+
+    <script type="text/javascript" src="/js/userList.js" ></script>
+</body>
+</html>

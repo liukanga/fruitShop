@@ -1,0 +1,154 @@
+body{
+    background-repeat:no-repeat ;
+    background-size:100% 100%;
+    background-attachment: fixed;
+    font-family: "华文楷体";
+}
+.remember{
+    display: flex;
+    margin-left: 50px;
+}
+.login-contain{
+    box-sizing: border-box;
+}
+
+.login-contain>div:first-child{
+    margin-top: 80px;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form{
+    text-align: center;
+    width: 400px;
+    height: 350px;
+    margin-left: 550px;
+    /*border: 2px solid saddlebrown;*/
+    border-radius: 10px;
+}
+
+.login-form>div:nth-child(3){
+
+}
+
+.txt{
+    font-size: 20px;
+    width: 100px;
+    height: 30px;
+    color: rgb(20,20,20);
+}
+.indiv{
+    display: flex;
+    justify-items: center;
+    padding-bottom: 18px;
+    padding-top: 18px;
+    margin-left: 50px;
+    width: 300px;
+    align-content: center;
+}
+
+.login-form>div:nth-child(3){
+    margin-left: 100px;
+}
+
+.indiv>input{
+    width: 200px;
+    height: 30px;
+    border:1px solid #fff;
+    border-radius: 5px;
+    background-color:rgba(255,255,255,0.5);
+    font-family: "华文楷体";
+}
+
+.indiv>input:hover
+{
+    border: 3px solid saddlebrown;
+}
+
+.indiv>select{
+    width: 200px;
+    height: 30px;
+    border:1px solid #fff;
+    border-radius: 5px;
+    background-color:rgba(255,255,255,0.5);
+    font-size: 16px;
+    color: black;
+    font-family: "华文楷体";
+}
+.indiv>select:hover{
+    border: 3px solid saddlebrown;
+    cursor: pointer;
+}
+
+select>option:hover{
+    cursor: pointer;
+}
+
+a{
+    font-size: 16px;
+    text-decoration-line: none;
+    color: saddlebrown;
+}
+
+a:hover
+{
+    color: sandybrown;
+}
+.checkbox{
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    padding-right: 20px;
+}
+
+.checkbox>scan{
+    font-size: 16px;
+}
+.regb{
+    text-align: center;
+    width: 150px;
+    height: 30px;
+    margin-left: 20px;
+}
+.login-btn{
+    margin-left: 50px;
+    margin-top: 30px;
+    width: 200px;
+    height: 40px;
+    color: black;
+    border:1px solid burlywood;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color:rgba(139,69,19,0.5);
+    font-size: 18px;
+    font-family: "华文楷体";
+}
+
+.login-btn:hover
+{
+    border: 3px solid saddlebrown;
+    background-color:rgba(244,164,96,0.5);
+}
+
+.copyright {
+    padding-top: 80px;
+    text-align: center;
+}
+.copyright p {
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+}
+.copyright p a{
+    font-size: 18px;
+    font-weight: 400;
+    color: saddlebrown;
+}
+.copyright p>a:first-child{
+    color: black;
+}
+.copyright p a:hover{
+    color:sandybrown;
+    text-decoration: none;
+}

@@ -1,0 +1,100 @@
+body{
+    font-family: "华文楷体";
+}
+header{
+    width: 500px;
+    height: 30px;
+    float: right;
+    display: flex;
+    justify-content: space-between;
+}
+header>div:hover{
+    background-color: rgba(139,69,19,0.5);
+}
+.downLine{
+    height: 1px;
+    border: 1px solid sandybrown;
+    background-color: sandybrown;
+}
+.cDetails{
+    margin-top: 10px;
+    display: none;
+}
+.cDetails:hover{
+    cursor: pointer;
+}
+.signOut{
+    margin-top: 10px;
+    display: none;
+}
+.signOut:hover{
+    cursor: pointer;
+}
+.cNovel:hover{
+    cursor: pointer;
+}
+.cUser:hover{
+    cursor: pointer;
+}
+.ccUser:hover{
+    cursor: pointer;
+}
+.ttl{
+    width: 500px;
+    margin: 0 auto;
+    font-size: 28px;
+    font-weight: 800;
+    padding-bottom: 20px;
+    text-align: center;
+}
+.splitLine{
+    margin-bottom: 10px;
+    height: 3px;
+    background-color: sandybrown;
+}
+main{
+    margin: 0 auto;
+    width: 800px;
+    padding-top: 50px;
+}
+.list{
+    display: flex;
+    justify-content: space-between;
+}
+.list>div{
+    width: 400px;
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+.num{
+    width: 900px;
+    height: 35px;
+    margin-top: 25px;
+    margin-left: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+}
+.num>div:last-child{
+    margin-left: 20px;
+}
+
+.paging-area>a{
+    font-size: 16px;
+    text-decoration-line: none;
+    color: saddlebrown;
+}
+.paging-area>a:hover{
+    cursor: pointer;
+    color: sandybrown;
+}
+.paging-area>div{
+    display: inline-block;
+    font-size: 16px;
+    color: black;
+}
+.paging-area>div:hover{
+    cursor: pointer;
+}
