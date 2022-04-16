@@ -7,11 +7,17 @@ import java.time.LocalDateTime;
 @Data
 public class User {
 
-    private Long id;
+    private Long accountNumber;
 
     private String username;
 
     private String password;
+
+    private String imageUrls;
+
+    private String description;
+
+    private String contract;
 
     private LocalDateTime gmtCreated;
 

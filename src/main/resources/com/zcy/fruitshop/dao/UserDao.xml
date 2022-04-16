@@ -1,8 +1,11 @@
 <mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
     <resultMap id="userMap" type="com.zcy.fruitshop.bean.User">
-        <result column="id" property="id"/>
+        <id column="id" property="accountNumber"/>
         <result column="username" property="username"/>
         <result column="password" property="password"/>
+        <result column="image_url" property="imageUrls"/>
+        <result column="description" property="description"/>
+        <result column="contract" property="contract"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>

@@ -1,0 +1,32 @@
+<mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
+    <resultMap id="commentMap" type="com.zcy.fruitshop.bean.Comment">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="user_id" property="userId"/>
+        <result column="gmt_created" property="gmtCreated"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="address" property="address"/>
+            <result column="user_id" property="userId"/>
+            <result column="image_url" property="imageUrls"/>
+            <result column="permit" property="permit"/>
+            <result column="b_hours" property="bHours"/>
+            <result column="gmt_created" property="gmtCreated"/>
+            <result column="gmt_modified" property="gmtModified"/>
+        </association>
+        <association property="user" javaType="com.zcy.fruitshop.bean.User">
+            <id column="id" property="accountNumber"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="image_url" property="imageUrls"/>
+            <result column="description" property="description"/>
+            <result column="contract" property="contract"/>
+            <result column="gmt_created" property="gmtCreated"/>
+            <result column="gmt_modified" property="gmtModified"/>
+        </association>
+    </resultMap>
+
+</mapper>

@@ -1,10 +1,43 @@
 <mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
     <resultMap id="fruitMap" type="com.zcy.fruitshop.bean.Fruit">
-        <result column="id" property="id"/>
-        <result column="name" property="username"/>
-        <result column="variety" property="variety"/>
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="category" property="category"/>
+        <result column="image_url" property="imageUrls"/>
+        <result column="location" property="location"/>
+        <result column="date_of_manufacture" property="dateOfManufacture"/>
+        <result column="quality_guarantee_period" property="qualityGuaranteePeriod"/>
+        <result column="price" property="price"/>
+        <result column="sugar" property="sugar"/>
+        <result column="organic_acid" property="organicAcid"/>
+        <result column="sugar_acid_ratio" property="sugarAcidRatio"/>
+        <result column="vitamins" property="vitamins"/>
+        <result column="meat_quality" property="meatQuality"/>
+        <result column="moisture" property="moisture"/>
+        <result column="shop_id" property="shopId"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
+        <association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="address" property="address"/>
+            <result column="user_id" property="userId"/>
+            <result column="image_url" property="imageUrls"/>
+            <result column="permit" property="permit"/>
+            <result column="b_hours" property="bHours"/>
+            <result column="gmt_created" property="gmtCreated"/>
+            <result column="gmt_modified" property="gmtModified"/>
+            <association property="user" javaType="com.zcy.fruitshop.bean.User">
+                <id column="id" property="accountNumber"/>
+                <result column="username" property="username"/>
+                <result column="password" property="password"/>
+                <result column="image_url" property="imageUrls"/>
+                <result column="description" property="description"/>
+                <result column="contract" property="contract"/>
+                <result column="gmt_created" property="gmtCreated"/>
+                <result column="gmt_modified" property="gmtModified"/>
+            </association>
+        </association>
     </resultMap>
 
     <select id="queryFruitByName" parameterType="java.lang.String" resultMap="fruitMap">
