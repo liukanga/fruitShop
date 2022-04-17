@@ -12,10 +12,10 @@ public interface FruitDao {
 
     Long addFruit(Fruit fruit);
 
-    int updateFruit(Fruit fruit);
+    void updateFruit(Fruit fruit);
 
-    int deleteFruitById(Long id);
+    void deleteFruitById(Long id);
 
-    List<Fruit> queryFruitsByVariety(String variety);
+    List<Fruit> queryFruitsByCategory(String variety);
 
 }

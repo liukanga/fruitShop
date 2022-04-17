@@ -25,7 +25,7 @@ public class Fruit {
     /**
      *  生产日期
      */
-    private String dateOfManufacture;
+    private LocalDateTime dateOfManufacture;
     /**
      *  保质期
      */
@@ -34,6 +34,10 @@ public class Fruit {
      *  价格
      */
     private String price;
+    /**
+     *  库存
+     */
+    private Integer stock;
     /**
      *  糖分
      */

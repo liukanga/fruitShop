@@ -1,4 +1,6 @@
-<mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcy.fruitshop.dao.FruitDao">
     <resultMap id="fruitMap" type="com.zcy.fruitshop.bean.Fruit">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -8,6 +10,7 @@
         <result column="date_of_manufacture" property="dateOfManufacture"/>
         <result column="quality_guarantee_period" property="qualityGuaranteePeriod"/>
         <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
         <result column="sugar" property="sugar"/>
         <result column="organic_acid" property="organicAcid"/>
         <result column="sugar_acid_ratio" property="sugarAcidRatio"/>
@@ -17,7 +20,7 @@
         <result column="shop_id" property="shopId"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
-        <association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
+        <!--<association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="address" property="address"/>
@@ -37,27 +40,49 @@
                 <result column="gmt_created" property="gmtCreated"/>
                 <result column="gmt_modified" property="gmtModified"/>
             </association>
-        </association>
+        </association>-->
     </resultMap>
 
     <select id="queryFruitByName" parameterType="java.lang.String" resultMap="fruitMap">
-        select * from fruit where name=#{name}
+        select * from fruit where name like #{name}
     </select>
 
     <insert id="addFruit" parameterType="com.zcy.fruitshop.bean.Fruit" useGeneratedKeys="true" keyProperty="id">
-        insert into fruit(name, variety, gmt_created, gmt_modified) values(#{name}, now(), now())
+        insert into fruit(name, category, image_url, location, date_of_manufacture, quality_guarantee_period, price, stock, sugar, organic_acid, sugar_acid_ratio, vitamins, meat_quality, moisture, shop_id, gmt_created, gmt_modified)
+        values(#{name}, #{category}, #{imageUrls}, #{location}, #{dateOfManufacture}, #{qualityGuaranteePeriod} , #{price} , #{stock}, #{sugar} , #{organicAcid} , #{sugarAcidRatio} , #{vitamins} , #{meatQuality} , #{moisture} , #{shopId}, now(), now())
     </insert>
 
     <update id="updateFruit" parameterType="com.zcy.fruitshop.bean.Fruit">
-        update fruit set name=#{name}, gmt_modified=now() where id=#{id}
+        update fruit
+        <set>
+            <if test="name=!null">
+                name=#{name},
+            </if>
+            <if test="category=!null">
+                category=#{category},
+            </if>
+            <if test="imageUrls=!null">
+                image_url=#{imageUrls},
+            </if>
+            <if test="price=!null">
+                price=#{price},
+            </if>
+            <if test="stock=!null">
+                stock=#{stock},
+            </if>
+            <if test="shopId=!null">
+                shop_id=#{shopId},
+            </if>
+            gmt_modified=now() where id=#{id}
+        </set>
     </update>
 
-    <delete id="deleteFruitById" parameterType="java.lang.Long">
+    <delete id="deleteFruitById">
         delete from fruit where id=#{id}
     </delete>
 
-    <select id="queryFruitsByVariety" parameterType="java.lang.String" resultMap="fruitMap">
-        select * from fruit where variety=#{variety}
+    <select id="queryFruitsByCategory" parameterType="java.lang.String" resultMap="fruitMap">
+        select * from fruit where category=#{category}
     </select>
 
 

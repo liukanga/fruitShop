@@ -4,6 +4,8 @@ import com.zcy.fruitshop.bean.Result;
 import com.zcy.fruitshop.bean.User;
 import com.zcy.fruitshop.exception.FSException;
 import com.zcy.fruitshop.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
+@Api(tags = "用户业务功能")
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -20,32 +23,36 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/loginPage")
+    @ApiOperation("登陆页面")
     public String login(){
         return "loginPage";
     }
 
     @GetMapping("/reg")
+    @ApiOperation("注册页面")
     public String register(){
         return "reg";
     }
 
     @GetMapping("/login")
+    @ApiOperation("用户登录")
     @ResponseBody
-    public Result<User> login(@NonNull @RequestParam(name = "username")String username,
+    public Result<User> login(@NonNull @RequestParam(name = "accountNumber")Long accountNumber,
                               @NonNull @RequestParam(name = "password")String password, Model model){
 
-        Result<User> result = userService.login(username, password);
+        Result<User> result = userService.login(accountNumber, password);
         model.addAttribute("user", result.getData());
         return result;
     }
 
     @PostMapping("/register")
+    @ApiOperation("用户注册")
     @ResponseBody
     public String register(@RequestBody User user, Model model) throws FSException {
 
         try {
             Long uid = userService.register(user);
-            user.setId(uid);
+            user.setAccountNumber(uid);
             model.addAttribute("msg", "注册成功! 您的账号是 "+uid);
             return "loginPage";
         }catch (FSException e){

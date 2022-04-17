@@ -2,13 +2,12 @@ package com.zcy.fruitshop.service.impl;
 
 import com.zcy.fruitshop.bean.Fruit;
 import com.zcy.fruitshop.dao.FruitDao;
-import com.zcy.fruitshop.exception.FSException;
-import com.zcy.fruitshop.exception.ValidationException;
+import com.zcy.fruitshop.exception.FSDBException;
 import com.zcy.fruitshop.service.FruitService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,30 +24,35 @@ public class FruitServiceImpl implements FruitService {
     }
 
     @Override
-    public Long addFruit(Fruit fruit) throws FSException {
-        if (StringUtils.isEmptyOrWhitespace(fruit.getVariety())){
-            log.error("*********水果的种类不能为空！");
-            throw new ValidationException("水果种类为空");
+    public Long addFruit(Fruit fruit) throws FSDBException {
+        try {
+            return fruitDao.addFruit(fruit);
+        }catch (Exception e){
+            log.error("*********添加水果失败");
+            throw new FSDBException("添加水果到数据库失败");
         }
-        if (StringUtils.isEmptyOrWhitespace(fruit.getName())){
-            log.error("*********水果名不能为空");
-            throw new ValidationException("水果名为空");
-        }
-        return fruitDao.addFruit(fruit);
     }
 
     @Override
-    public int updateFruit(Fruit fruit) {
-        return fruitDao.updateFruit(fruit);
+    @Transactional(rollbackFor = FSDBException.class)
+    public int updateFruit(Fruit fruit) throws FSDBException{
+        try {
+            fruitDao.updateFruit(fruit);
+            return 0;
+        }catch (Exception e){
+            log.error("********* 更新水果信息失败", e);
+            throw new FSDBException("更新水果信息到数据库失败");
+        }
     }
 
     @Override
     public int deleteFruitById(Long id) {
-        return deleteFruitById(id);
+        fruitDao.deleteFruitById(id);
+        return 0;
     }
 
     @Override
-    public List<Fruit> queryFruitsByVariety(String variety) {
-        return fruitDao.queryFruitsByVariety(variety);
+    public List<Fruit> queryFruitsByCategory(String category) {
+        return fruitDao.queryFruitsByCategory(category);
     }
 }

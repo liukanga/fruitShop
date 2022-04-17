@@ -1,4 +1,4 @@
-package com.zcy.fruitshop.bean;
+package com.zcy.fruitshop.enumrate;
 
 public enum MessageEnum {
 

@@ -1,4 +1,6 @@
-<mapper xmlns="http://mybatis.org/schema/mybatis-mapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcy.fruitshop.dao.CommentDao">
     <resultMap id="commentMap" type="com.zcy.fruitshop.bean.Comment">
         <id column="id" property="id"/>
         <result column="content" property="content"/>
@@ -6,7 +8,7 @@
         <result column="user_id" property="userId"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
-        <association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
+        <!--<association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="address" property="address"/>
@@ -26,7 +28,32 @@
             <result column="contract" property="contract"/>
             <result column="gmt_created" property="gmtCreated"/>
             <result column="gmt_modified" property="gmtModified"/>
-        </association>
+        </association>-->
     </resultMap>
+
+    <select id="loadCommentById" resultMap="commentMap" parameterType="java.lang.Long">
+        select * from comment where id=#{id}
+    </select>
+
+    <select id="loadCommentByShopId" resultMap="commentMap" parameterType="java.lang.Long">
+        select * from comment where shop_id=#{shopId}
+    </select>
+
+    <select id="loadCommentByUserId" resultMap="commentMap" parameterType="java.lang.Long">
+        select * from comment where user_id=#{userId}
+    </select>
+
+    <insert id="addComment" parameterType="com.zcy.fruitshop.bean.Comment" keyProperty="id" useGeneratedKeys="true">
+        insert into comment(content, shop_id, user_id, gmt_created, gmt_modified)
+        values (#{content}, #{shopId}, #{userId}, now(), now())
+    </insert>
+
+    <update id="updateComment" parameterType="com.zcy.fruitshop.bean.Comment">
+        update comment set content=#{content}, gmt_modified=now() where id=#{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from comment where id=#{id}
+    </delete>
 
 </mapper>

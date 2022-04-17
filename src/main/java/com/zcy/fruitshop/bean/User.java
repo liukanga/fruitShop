@@ -13,6 +13,10 @@ public class User {
 
     private String password;
 
+    private String address;
+
+    private int level;
+
     private String imageUrls;
 
     private String description;
