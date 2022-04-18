@@ -23,6 +23,8 @@ public class User {
 
     private String contract;
 
+    private String accessCode;
+
     private LocalDateTime gmtCreated;
 
     private LocalDateTime gmtModified;

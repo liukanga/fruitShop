@@ -6,12 +6,13 @@ import com.zcy.fruitshop.exception.FSException;
 import com.zcy.fruitshop.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -34,14 +35,19 @@ public class UserController {
         return "reg";
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ApiOperation("用户登录")
     @ResponseBody
-    public Result<User> login(@NonNull @RequestParam(name = "accountNumber")Long accountNumber,
-                              @NonNull @RequestParam(name = "password")String password, Model model){
+    public Result<User> login(@RequestBody User user, Model model,  HttpSession session){
 
-        Result<User> result = userService.login(accountNumber, password);
-        model.addAttribute("user", result.getData());
+        Result<User> result = userService.login(user.getAccountNumber(), user.getPassword());
+        String accessCode = (String) session.getAttribute("accessCode");
+        result.setSuccess(true);
+        if (accessCode.equalsIgnoreCase(user.getAccessCode())){
+            model.addAttribute("user", result.getData());
+            result.setMessage("验证码错误！");
+            result.setSuccess(false);
+        }
         return result;
     }
 

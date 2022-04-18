@@ -2,24 +2,17 @@ var login_btn = document.querySelector(".login-btn");
 
 login_btn.addEventListener("click", function () {
 
-    var aid = document.getElementById("aid").value;
+    var aNumber = document.getElementById("accountNumber").value;
     var pwd = document.getElementById("password").value;
-    var status = document.getElementById("status").value;
+    var accessCode = document.getElementById("accessCode").value;
 
-    if(aid===''||pwd===''){
-        alert("账号或密码不能为！");
-    }
-    if(status==='0'){
-        alert("请选择身份！");
+    if(aNumber===''||pwd===''||accessCode===''){
+        alert("账号、密码、验证码均不能为！");
     }
     var user = {
-        "id": aid,
-        "name": null,
+        "accountNumber": aNumber,
         "password": pwd,
-        "status": status,
-        "novels": [],
-        "duration": null,
-        "details": null
+        "accessCode": accessCode
     };
 
     fetch(
@@ -51,7 +44,13 @@ login_btn.addEventListener("click", function () {
             }
 
         })
+});
 
 
 
-})
+function switchKaptcha(){
+
+    var p = document.getElementById("aCode");
+    p.src="http://localhost:8028/kaptcha.png";
+}
+
