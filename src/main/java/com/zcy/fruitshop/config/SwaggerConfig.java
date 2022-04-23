@@ -67,7 +67,7 @@ public class SwaggerConfig {
                 .globalResponseMessage(RequestMethod.PUT, responseMessageList)
                 .globalResponseMessage(RequestMethod.DELETE, responseMessageList)
                 .apiInfo(apiInfo())
-                .groupName("梓清")
+                .groupName("初阳")
                 .enable(true)//是否启用swagger，如果为false则swagger不能再浏览器中访问
                 .select()//通过select()方法配置扫描接口,RequestHandlerSelectors配置如何扫描接口
                 //指定扫描的api包
@@ -98,9 +98,9 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        Contact contact = new Contact("刘梓清", "", "liukang23113@163.com");
+        Contact contact = new Contact("朱初阳", "", "");
         return new ApiInfo(
-                "梓清的SwaggerAPI文档",
+                "初阳的SwaggerAPI文档",
                 "不断学习，不断进步",
                 "1.0",
                 "urn:tos",
