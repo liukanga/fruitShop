@@ -1,0 +1,124 @@
+
+body{
+    text-align: center;
+    background-repeat:no-repeat ;background-size:100% 100%;
+    background-attachment: fixed;
+    font-family: "华文楷体";
+}
+.reg-contain>div:first-child{
+    margin-top: 40px;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reg-form{
+    width: 400px;
+    height: 500px;
+    padding-left: 580px;
+}
+.txtb{
+    display: flex;
+    justify-items: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    width: 300px;
+    align-content: center;
+    font-family: "华文楷体";
+}
+
+.txtb>input{
+    width: 200px;
+    height: 30px;
+    border:1px solid #fff;
+    border-radius: 5px;
+    background-color:rgba(255,255,255,0.5);
+    font-family: "华文楷体";
+}
+
+.txtb>input:hover
+{
+    border: 3px solid saddlebrown;
+}
+
+.txtb>select{
+    border:1px solid #fff;
+    width: 200px;
+    height: 32px;
+    background-color:rgba(255,255,255,0.5);
+    border-radius: 5px;
+    font-family: "华文楷体";
+}
+.txtb>select:hover{
+    border: 3px solid saddlebrown;
+    cursor: pointer;
+}
+
+select>option:hover{
+    cursor: pointer;
+}
+
+.intxt{
+    font-size: 18px;
+    width: 100px;
+    height: 30px;
+    color: black;
+}
+
+textarea{
+    width: 200px;
+    height: 110px;
+    border:1px solid #fff;
+    border-radius: 5px;
+    resize: none;
+    font-family: "华文楷体";
+    background-color:rgba(255,255,255,0.5);
+}
+
+textarea:hover{
+    border: 3px solid saddlebrown;
+}
+
+.reg-btn{
+    margin-left: 100px;
+    font-size: 18px;
+    width: 200px;
+    height: 35px;
+    color: black;
+    border:1px solid burlywood;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color:rgba(139,69,19,0.5);
+    font-family: "华文楷体";
+}
+
+.reg-btn:hover
+{
+    background-color:rgba(128,128,128,0.5);
+}
+
+.copyright {
+    padding-top: 50px;
+    text-align: center;
+    font-family: "华文楷体";
+
+}
+.copyright p {
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+
+}
+.copyright p a{
+    font-size: 18px;
+    font-weight: 400;
+    color: saddlebrown;
+    text-decoration:none;
+}
+.copyright p>a:first-child{
+    color: black;
+}
+.copyright p a:hover{
+    color:sandybrown;
+    text-decoration:black;
+}

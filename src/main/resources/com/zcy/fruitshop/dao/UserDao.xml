@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcy.fruitshop.dao.UserDao">
+    <resultMap id="userMap" type="com.zcy.fruitshop.bean.User">
+        <id column="id" property="accountNumber"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="address" property="address"/>
+        <result column="level" property="level"/>
+        <result column="image_url" property="imageUrls"/>
+        <result column="description" property="description"/>
+        <result column="contract" property="contract"/>
+        <result column="gmt_created" property="gmtCreated"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <select id="queryUserById" parameterType="java.lang.Long" resultMap="userMap">
+        select * from user where id=#{accountNumber}
+    </select>
+
+    <insert id="addUser" parameterType="com.zcy.fruitshop.bean.User" useGeneratedKeys="true" keyProperty="accountNumber">
+        insert into user(username, password, address, level, image_url, description, contract, gmt_created, gmt_modified)
+        values(#{username}, #{password}, #{address}, #{level}, #{imageUrls}, #{description}, #{contract}, now(), now())
+    </insert>
+
+    <update id="updateUser" parameterType="com.zcy.fruitshop.bean.User">
+        update user
+        <set>
+            <if test="username!=null">
+                username=#{username},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="address!=null">
+                address=#{address},
+            </if>
+            <if test="imageUrls!=null">
+                image_url=#{imageUrls},
+            </if>
+            <if test="description!=null">
+                description=#{description},
+            </if>
+            <if test="contract!=null">
+                contract=#{contract},
+            </if>
+              gmt_modified=now() where id=#{accountNumber}
+        </set>
+    </update>
+
+    <delete id="deleteUserById">
+        delete from user where id=#{accountNumber}
+    </delete>
+
+    <select id="queryUserByUsername" parameterType="java.lang.String" resultMap="userMap">
+        select * from user where username like #{username}
+    </select>
+
+    <select id="queryAllUser" resultMap="userMap">
+        select * from user
+    </select>
+
+
+</mapper>

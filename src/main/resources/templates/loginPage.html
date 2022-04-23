@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高校水果商店登录页面</title>
+    <!--<link rel="stylesheet" href="../static/css/login.css" />
+    <script language="JavaScript" src="../static/js/jquery-3.6.0.js"></script>-->
+    <link rel="stylesheet" href="../css/login.css" />
+    <script language="JavaScript" src="/js/jquery-3.6.0.js"></script>
+</head>
+<!--<body background="../static/images/login-bg.jpg">-->
+<body>
+    <header style="display: flex;">
+        <img src="../images/fruit.png" height="65px" width="65px" />
+        <div style="font-size: 48px;font-weight: 600">高校水果预订系统</div>
+    </header>
+    <div style="width: 500px;height: 2px;background-color: black"></div>
+    <div class="mainBox">
+        <div>
+            <div style="display: flex">
+                <img class="bg" src="../images/login-bg1.png"/>
+                <img class="bg" src="../images/login-bg2.png"/>
+            </div>
+            <div style="display: flex">
+                <img class="bg" src="../images/login-bg3.png"/>
+                <img class="bg" src="../images/login-bg4.png"/>
+            </div>
+        </div>
+
+        <div class="login-contain" >
+            <div>
+                <span style="font-size: 30px">登录</span>
+            </div>
+            <div class="login-form">
+                <div class="indiv">
+                    <div class="txt">账号：</div>
+                    <input type="text" id="accountNumber" placeholder="请输入账号" />
+                </div>
+                <div class="indiv">
+                    <div class="txt">密码：</div>
+                    <input type="password" id="password" placeholder="请输入密码" />
+                </div>
+                <div class="remember" style="margin-bottom: 30px">
+                    <div class="txt" style="margin-left: -40px;width: 120px">验证码：</div>
+                    <input type="text" id="accessCode"/>
+                    <img src="/kaptcha.png" id="aCode" onclick="switchKaptcha()">
+                </div>
+
+                <div class="remember">
+                    <div class="checkbox">
+                        <input type="checkbox" name="" checked=""><span>记住密码</span>
+                    </div>
+                    <div class="regb">
+                        <a href="/user/reg">没有账户？点击注册</a>
+                    </div>
+                </div>
+                <div class="indiv">
+                    <button class="login-btn" type="button">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="copyright">
+        <p>© 2021 <a href="/user/loginPage">University fruit reservation system</a>. All rights reserved | Design by  <a href="https://blog.csdn.net/John_Mark?spm=1011.2124.3001.5343" target="_blank"> liuziqing </a></p>
+    </div>
+
+    <script type="text/javascript" src="/js/login.js" ></script>
+
+</body>
+</html>
