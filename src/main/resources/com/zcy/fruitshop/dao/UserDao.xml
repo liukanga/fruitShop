@@ -18,6 +18,10 @@
         select * from user where id=#{accountNumber}
     </select>
 
+    <select id="queryAllUser" resultMap="userMap">
+        select * from user
+    </select>
+
     <insert id="addUser" parameterType="com.zcy.fruitshop.bean.User" useGeneratedKeys="true" keyProperty="accountNumber">
         insert into user(username, password, address, level, image_url, description, contract, gmt_created, gmt_modified)
         values(#{username}, #{password}, #{address}, #{level}, #{imageUrls}, #{description}, #{contract}, now(), now())

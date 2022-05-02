@@ -20,4 +20,6 @@ public interface UserService {
 
     List<User> loadUserByUsername(String username);
 
+    List<User> loadAllUser();
+
 }

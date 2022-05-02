@@ -19,4 +19,6 @@ public interface UserDao {
 
     List<User> queryUserByUsername(@Param("username")String username);
 
+    List<User> queryAllUser();
+
 }

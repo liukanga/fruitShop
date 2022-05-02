@@ -73,4 +73,10 @@ public class UserServiceImpl implements UserService {
         return userDao.queryUserByUsername(username);
     }
 
+    @Override
+    public List<User> loadAllUser() {
+
+        return userDao.queryAllUser();
+    }
+
 }

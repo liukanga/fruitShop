@@ -92,5 +92,11 @@ public class SysUserController {
         return result;
     }
 
+    @ApiOperation("查询所有用户")
+    @GetMapping(value = "/allUser")
+    public List<User> loadAllUser(){
+        return userService.loadAllUser();
+    }
+
 
 }
