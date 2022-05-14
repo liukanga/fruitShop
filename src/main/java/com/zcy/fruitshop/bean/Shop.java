@@ -19,7 +19,7 @@ public class Shop {
     /**
      *  店主id
      */
-    private String userId;
+    private Long userId;
     /**
      *  商家图片
      */
@@ -28,6 +28,8 @@ public class Shop {
      *  许可证
      */
     private String permit;
+
+    private String description;
     /**
      *  营业时间
      */
@@ -36,4 +38,27 @@ public class Shop {
     private LocalDateTime gmtCreated;
     private LocalDateTime gmtModified;
 
+    public Shop(String name, String address,  Long userId, String permit, String description, String bHours) {
+        this.name = name;
+        this.address = address;
+        this.userId = userId;
+        this.permit = permit;
+        this.description = description;
+        this.bHours = bHours;
+    }
+
+    public Shop(Long id, String name, String address, Long userId, String imageUrls, String permit, String description, String bHours, LocalDateTime gmtCreated, LocalDateTime gmtModified) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.userId = userId;
+        this.imageUrls = imageUrls;
+        this.permit = permit;
+        this.description = description;
+        this.bHours = bHours;
+        this.gmtCreated = gmtCreated;
+        this.gmtModified = gmtModified;
+    }
+
+    public Shop(){}
 }

@@ -13,35 +13,19 @@ import io.swagger.annotations.ApiParam;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
-@Api(tags = "用户模块API")
-@RestController(value = "/sys/user/")
+@Api(tags = "用户模块RestAPI")
+@RestController
 public class SysUserController {
 
     @Autowired
     private UserService userService;
-
-    @ApiOperation("添加用户接口")
-    @PostMapping(value = "/addUser")
-    public Result<User> addUser(@RequestBody User user) throws FSException{
-        Result<User> result = new Result<>();
-        try {
-            userService.register(user);
-            result.setData(user);
-            result.setMessage("注册用户成功");
-            result.setCode(200);
-            result.setSuccess(true);
-            return result;
-        }catch (FSDBException e){
-            log.error("****** 注册用户失败", e);
-            throw new FSException("注册用户失败");
-        }
-    }
 
     @ApiOperation("根据ID查询用户")
     @GetMapping(value = "/findUser")
@@ -55,48 +39,86 @@ public class SysUserController {
         return result;
     }
 
-    @ApiOperation("更新用户")
-    @PutMapping(value = "/updateUser")
-    public Result<User> updateUser(@RequestBody User user) throws FSException{
-        Result<User> result = new Result<>();
-        try {
-            userService.updateUser(user);
-            result.setData(user);
-            result.setMessage("更新用户成功");
-            result.setCode(200);
-            result.setSuccess(true);
-        }catch (FSDBException e){
-            log.error("****** 更新用户失败", e);
-            throw new FSException("更新用户失败");
-        }
-        return result;
-    }
-
-    @ApiOperation("删除用户")
-    @DeleteMapping(value = "/deleteUser")
-    public Integer deleteUserById(@RequestParam(value = "id") Long id) {
-        return userService.deleteUserById(id);
-    }
-
-    @ApiOperation("根据用户名查询")
+    /*@ApiOperation("根据用户名查询")
     @GetMapping(value = "/userList")
     public Result<List<User>> loadUserByUsername(@RequestParam(value = "username")String username){
 
         Result<List<User>> result = new Result<>();
-        List<User> users = userService.loadUserByUsername(username);
+        List<User> users = userService.loadUser(username, null);
         result.setData(users);
         result.setCode(200);
         result.setSuccess(true);
         result.setMessage(CollectionUtils.isEmpty(users) ? FSConstant.NO_DATA_FOUND : FSConstant.SUCCESS);
 
         return result;
-    }
+    }*/
 
-    @ApiOperation("查询所有用户")
-    @GetMapping(value = "/allUser")
-    public List<User> loadAllUser(){
+    @PostMapping("/allUser")
+    public List<User> toUserList(){
+
         return userService.loadAllUser();
     }
 
+    @ApiOperation("删除用户")
+    @GetMapping("/delete")
+    public Result<String> deleteUser(@RequestParam("accountNumber")Long accountNumber, Model model){
+
+        Result<String> result = new Result<>();
+
+        userService.deleteUserById(accountNumber);
+
+        result.setSuccess(true);
+
+        return result;
+    }
+
+
+    @ApiOperation("添加用户")
+    @PostMapping("/addUser")
+    public Result<String> addUser(@RequestParam(value = "username")String username,
+                                  @RequestParam(value = "password")String password,
+                                  @RequestParam(value = "level")String level,
+                                  @RequestParam(value = "address")String address,
+                                  @RequestParam(value = "contract")String contract,
+                                  @RequestParam(value = "description")String description, Model model){
+
+        Result<String> result = new Result<>();
+
+        User user = new User(username, password, address, level, description, contract);
+        try {
+            userService.register(user);
+            result.setSuccess(true);
+            result.setMessage("注册成功，您的账号为：" + user.getAccountNumber() + " 请牢记！");
+        }catch (FSDBException e){
+            result.setSuccess(false);
+            result.setMessage("添加用户失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/updateUser/{accountNumber}")
+    @ApiOperation("更新用户")
+    public Result<String> updateUser(@PathVariable("accountNumber") Long accountNumber,
+                                     @RequestParam(value = "username")String username,
+                                     @RequestParam(value = "password")String password,
+                                     @RequestParam(value = "level")String level,
+                                     @RequestParam(value = "address")String address,
+                                     @RequestParam(value = "contract")String contract,
+                                     @RequestParam(value = "description")String description, Model model){
+
+        Result<String> result = new Result<>();
+
+        User user = new User(username, password, address, level, description, contract);
+        user.setAccountNumber(accountNumber);
+        try {
+            userService.updateUser(user);
+            result.setSuccess(true);
+            result.setMessage("更新用户信息成功");
+        }catch (FSDBException e){
+            result.setSuccess(false);
+            result.setMessage("更新用户失败");
+        }
+        return result;
+    }
 
 }

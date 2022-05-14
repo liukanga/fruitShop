@@ -19,4 +19,10 @@ public class Comment {
 
     private LocalDateTime gmtModified;
 
+    public Comment(){}
+
+    public Comment(String content, LocalDateTime gmtCreated) {
+        this.content = content;
+        this.gmtCreated = gmtCreated;
+    }
 }

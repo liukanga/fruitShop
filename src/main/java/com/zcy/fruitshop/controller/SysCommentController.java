@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "评论模块API")
-@RestController(value = "/sys/comment/")
+@Api(tags = "评论模块RestAPI")
+@RestController
 public class SysCommentController {
 
     @Autowired
@@ -55,19 +55,21 @@ public class SysCommentController {
 
     @ApiOperation("添加评论")
     @PostMapping("/addComment")
-    public Result<Comment> addComment(@RequestBody Comment comment) throws FSException {
+    public Result<Comment> addComment(@RequestBody Comment comment){
         Result<Comment> result = new Result<>();
         try {
             commentService.addComment(comment);
             result.setData(comment);
             result.setSuccess(true);
             result.setCode(200);
-            result.setMessage("添加评论成功");
-            return result;
+            result.setMessage("评论成功");
         }catch (FSDBException e){
             log.error("********* 添加评论失败", e);
-            throw new  FSException("添加评论失败");
+            result.setSuccess(false);
+            result.setCode(400);
+            result.setMessage("评论失败，请重新尝试！");
         }
+        return result;
     }
 
     @ApiOperation("修改评论")
@@ -89,9 +91,19 @@ public class SysCommentController {
 
 
     @ApiOperation("根据id删除评论")
-    @DeleteMapping("/deleteComment")
-    public Integer deleteCommentById(@RequestParam("id") Long id){
-        return commentService.deleteCommentById(id);
+    @GetMapping("/deleteComment")
+    public Result<String> deleteCommentById(@RequestParam("id") Long id){
+        Result<String> result = new Result<>();
+        commentService.deleteCommentById(id);
+        result.setMessage("删除成功");
+        result.setSuccess(true);
+        return result;
+    }
+
+    @PostMapping("/allComment")
+    public List<Comment> allComments(){
+
+        return commentService.loadAllComment();
     }
 
 

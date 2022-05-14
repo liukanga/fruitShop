@@ -18,4 +18,6 @@ public interface FruitDao {
 
     List<Fruit> queryFruitsByCategory(String variety);
 
+    List<Fruit> loadAllFruits();
+
 }

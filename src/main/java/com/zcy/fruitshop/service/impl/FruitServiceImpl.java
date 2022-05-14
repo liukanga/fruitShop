@@ -28,13 +28,12 @@ public class FruitServiceImpl implements FruitService {
         try {
             return fruitDao.addFruit(fruit);
         }catch (Exception e){
-            log.error("*********添加水果失败");
+            log.error("*********添加水果失败", e);
             throw new FSDBException("添加水果到数据库失败");
         }
     }
 
     @Override
-    @Transactional(rollbackFor = FSDBException.class)
     public int updateFruit(Fruit fruit) throws FSDBException{
         try {
             fruitDao.updateFruit(fruit);
@@ -54,5 +53,10 @@ public class FruitServiceImpl implements FruitService {
     @Override
     public List<Fruit> queryFruitsByCategory(String category) {
         return fruitDao.queryFruitsByCategory(category);
+    }
+
+    @Override
+    public List<Fruit> loadAllFruits() {
+        return fruitDao.loadAllFruits();
     }
 }

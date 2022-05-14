@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserDao {
@@ -17,7 +18,7 @@ public interface UserDao {
 
     int deleteUserById(@Param("accountNumber")Long id);
 
-    List<User> queryUserByUsername(@Param("username")String username);
+    List<User> queryUser(Map<String, String> param);
 
     List<User> queryAllUser();
 

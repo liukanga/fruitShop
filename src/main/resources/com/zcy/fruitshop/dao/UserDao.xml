@@ -18,10 +18,6 @@
         select * from user where id=#{accountNumber}
     </select>
 
-    <select id="queryAllUser" resultMap="userMap">
-        select * from user
-    </select>
-
     <insert id="addUser" parameterType="com.zcy.fruitshop.bean.User" useGeneratedKeys="true" keyProperty="accountNumber">
         insert into user(username, password, address, level, image_url, description, contract, gmt_created, gmt_modified)
         values(#{username}, #{password}, #{address}, #{level}, #{imageUrls}, #{description}, #{contract}, now(), now())
@@ -56,8 +52,15 @@
         delete from user where id=#{accountNumber}
     </delete>
 
-    <select id="queryUserByUsername" parameterType="java.lang.String" resultMap="userMap">
-        select * from user where username like #{username}
+    <select id="queryUser" resultMap="userMap">
+        select * from user where
+        <if test="username!=null">
+            username like concat('%',#{username},'%') and
+        </if>
+        <if test="level!=null">
+            level=#{level} and
+        </if>
+            id > 0
     </select>
 
     <select id="queryAllUser" resultMap="userMap">

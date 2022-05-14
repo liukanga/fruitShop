@@ -58,4 +58,9 @@ public class CommentServiceImpl implements CommentService {
         commentDao.deleteById(id);
         return 0;
     }
+
+    @Override
+    public List<Comment> loadAllComment() {
+        return commentDao.loadAllComment();
+    }
 }

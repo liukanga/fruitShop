@@ -2,99 +2,38 @@ body{
     font-family: "华文楷体";
 }
 header{
-    width: 500px;
-    height: 30px;
-    float: right;
     display: flex;
-    justify-content: space-between;
-}
-header>div:hover{
-    background-color: rgba(139,69,19,0.5);
-}
-.downLine{
-    height: 1px;
-    border: 1px solid sandybrown;
-    background-color: sandybrown;
-}
-.cDetails{
-    margin-top: 10px;
-    display: none;
-}
-.cDetails:hover{
-    cursor: pointer;
-}
-.signOut{
-    margin-top: 10px;
-    display: none;
-}
-.signOut:hover{
-    cursor: pointer;
-}
-.cNovel:hover{
-    cursor: pointer;
-}
-.cUser:hover{
-    cursor: pointer;
-}
-.ccUser:hover{
-    cursor: pointer;
-}
-.ttl{
-    width: 500px;
-    margin: 0 auto;
-    font-size: 28px;
-    font-weight: 800;
-    padding-bottom: 20px;
-    text-align: center;
-}
-.splitLine{
-    margin-bottom: 10px;
-    height: 3px;
-    background-color: sandybrown;
-}
-main{
-    margin: 0 auto;
-    width: 800px;
-    padding-top: 50px;
-}
-.list{
-    display: flex;
-    justify-content: space-between;
-}
-.list>div{
-    width: 400px;
-    margin-top: 10px;
-    font-size: 18px;
-    text-align: center;
-}
-.num{
-    width: 900px;
-    height: 35px;
-    margin-top: 25px;
-    margin-left: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid black;
-}
-.num>div:last-child{
-    margin-left: 20px;
+    justify-content: space-around;
+    margin-bottom: -50px;
 }
 
-.paging-area>a{
-    font-size: 16px;
-    text-decoration-line: none;
-    color: saddlebrown;
+.img1{
+    height: 55px;
+    width: 55px;
 }
-.paging-area>a:hover{
-    cursor: pointer;
-    color: sandybrown;
+
+.titl{
+    font-size: 38px;
+    font-weight: 600
 }
-.paging-area>div{
-    display: inline-block;
-    font-size: 16px;
-    color: black;
+
+.user-details{
+    width: 100px;
+    height: 55px;
+    border: 1px solid #007FB0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.paging-area>div:hover{
-    cursor: pointer;
+
+.img2{
+    width: 50px;
+    height: 50px;
+    border: 1px solid blanchedalmond;
+    border-radius: 50%;
+}
+
+.user-details>p{
+    font-size: 12px;
+    margin-left: 20px;
 }

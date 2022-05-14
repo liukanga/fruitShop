@@ -1,0 +1,111 @@
+body{
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-weight: 500;
+}
+header{
+    display: flex;
+    justify-content: space-around;
+}
+
+.img1{
+    height: 55px;
+    width: 55px;
+}
+
+.titl{
+    font-size: 38px;
+    font-weight: 600
+}
+
+.user-details{
+    width: 100px;
+    height: 55px;
+    border: 1px solid #007FB0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.img2{
+    width: 50px;
+    height: 50px;
+    border: 1px solid blanchedalmond;
+    border-radius: 50%;
+}
+
+.user-details>p{
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+.query{
+    margin-left: 530px;
+    margin-top: 20px;
+}
+
+#shop_name{
+    width: 450px;
+    height: 40px;
+    border: 1px solid rgb(118, 232, 69);
+    border-radius: 5px;
+}
+
+.query>button{
+    margin-left: 20px;
+    height: 40px;
+    width: 70px;
+    background-color: rgba(118, 232, 69, 0.5);
+    border-radius: 5px;
+}
+.query>button:hover{
+    cursor: pointer;
+    background-color: rgb(131, 232, 160);
+}
+
+.shop_list{
+    margin-top: 30px;
+}
+
+.td{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.td>div{
+    width: 400px;
+    height: 120px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border:2px solid #9bdf70;
+    background:#f0fbeb;
+    border-radius: 5px;
+}
+
+.td>div:hover{
+    border: 5px dashed #9bdf70;
+    cursor: pointer;
+}
+
+.shop_list{
+
+    display: flex;
+
+}
+
+.page_num{
+    width: 600px;
+    display: flex;
+    margin-top: 50px;
+    margin-left: 450px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page_num>button{
+    width: 60px;
+    height: 30px;
+}

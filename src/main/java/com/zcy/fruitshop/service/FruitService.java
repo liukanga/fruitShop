@@ -17,4 +17,6 @@ public interface FruitService {
 
     List<Fruit> queryFruitsByCategory(String category);
 
+    List<Fruit> loadAllFruits();
+
 }

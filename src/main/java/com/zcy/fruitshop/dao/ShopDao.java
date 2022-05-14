@@ -21,4 +21,6 @@ public interface ShopDao {
 
     List<Shop> queryShopByName(@Param("name")String name);
 
+    List<Shop> queryAllShop();
+
 }

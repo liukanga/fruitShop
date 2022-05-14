@@ -18,7 +18,7 @@ public interface UserService {
 
     Result<User> login(Long accountNumber, String password);
 
-    List<User> loadUserByUsername(String username);
+    List<User> loadUser(String username, String level);
 
     List<User> loadAllUser();
 

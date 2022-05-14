@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
     <meta charset="UTF-8">
-    <title>用户列表</title>
+    <title>商店列表</title>
     <link rel="stylesheet" href="../css/userList.css" />
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
@@ -13,7 +13,6 @@
     <script type="text/javascript" src="../js/admin.js"></script>
 </head>
 <body>
-
 <header>
     <img class="img1" src="../images/fruit.png" />
     <div class="titl">高校水果预订系统</div>
@@ -25,55 +24,55 @@
 <div style="margin-top: 50px;">
     <div style="display: flex;">
         <button style="float: right;" onclick="toUserList()">用户列表</button>
-        <button style="float: left;"  onclick="toShopList()">商店列表</button>
+        <button style="float: right;" onclick="toCommentList()">评论列表</button>
         <button style="float: right;" onclick="toFruitList()">水果列表</button>
     </div>
-    <table id="dg" title="用户表" class="easyui-datagrid" style="width:100%;height:600px;"
-           url="http://localhost:8028/allUser"
+    <table id="dg" title="商店表" class="easyui-datagrid" style="width:100%;height:600px;"
+           url="http://localhost:8028/allShop"
            toolbar="#toolbar" pagination="true"
            rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
         <tr>
-            <th field="accountNumber" width="50">账号</th>
-            <th field="username" width="50">用户名</th>
-            <th field="password" width="50">密码</th>
-            <th field="level" width="30">身份</th>
-            <th field="address" width="80">地址</th>
-            <th field="contract" width="80">联系方式</th>
-            <th field="description" width="80">个人描述</th>
+            <th field="id" width="30">编号</th>
+            <th field="name" width="50">商店名</th>
+            <th field="address" width="50">地址</th>
+            <th field="userId" width="50">所属商家id</th>
+            <th field="description" width="80">描述</th>
+            <th field="permit" width="80">经营许可</th>
+            <th field="bhours" width="80">营业时间</th>
         </tr>
         </thead>
     </table>
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加用户</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑用户</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除用户</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newShop()">添加商店</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editShop()">编辑商店</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyShop()">删除商店</a>
     </div>
 
     <div id="dlg" class="easyui-dialog" style="width:800px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
             <div style="margin-bottom:10px">
-                <input name="username" class="easyui-textbox" required="true" label="用户名:" style="width:100%">
-            </div>
-            <div style="margin-bottom:10px">
-                <input name="password" class="easyui-textbox" required="true" label="密码:" style="width:100%">
-            </div>
-            <div style="margin-bottom:10px">
-                <input name="level" class="easyui-textbox" required="true" label="身份:" style="width:100%">
+                <input name="name" class="easyui-textbox" required="true" label="商店名:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
                 <input name="address" class="easyui-textbox" required="true" label="地址:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="contract" class="easyui-textbox" required="true" validType="number" label="联系方式:" style="width:100%">
+                <input name="userId" class="easyui-textbox" required="true" label="所属商家id:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
-                <input name="description" class="easyui-textbox" required="false" label="个人描述:" style="width:100%">
+                <input name="description" class="easyui-textbox" required="true" label="描述:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="permit" class="easyui-textbox" required="true" label="经营许可:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="bhours" class="easyui-textbox" required="true" label="营业时间:" style="width:100%">
             </div>
         </form>
     </div>
     <div id="dlg-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">确认</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveShop()" style="width:90px">确认</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
     </div>
 </div>
@@ -83,20 +82,20 @@
 <script type="text/javascript">
     var url;
 
-    function newUser(){
-        $('#dlg').dialog('open').dialog('center').dialog('setTitle','添加用户');
+    function newShop(){
+        $('#dlg').dialog('open').dialog('center').dialog('setTitle','添加商店');
         $('#fm').form('clear');
-        url = 'http://localhost:8028/addUser';
+        url = 'http://localhost:8028/addShop';
     }
-    function editUser(){
+    function editShop(){
         var row = $('#dg').datagrid('getSelected');
         if (row){
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑用户');
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑商店');
             $('#fm').form('load',row);
-            url = 'http://localhost:8028/updateUser/'+row.accountNumber;
+            url = 'http://localhost:8028/updateShop/'+row.id;
         }
     }
-    function saveUser(){
+    function saveShop(){
         $('#fm').form('submit',{
             url: url,
             iframe: false,
@@ -117,18 +116,18 @@
             }
         });
     }
-    function destroyUser(){
+    function destroyShop(){
         var row = $('#dg').datagrid('getSelected');
         if (row){
-            $.messager.confirm('提示','确认要删除当前用户吗?',function(r){
+            $.messager.confirm('提示','确认要删除当前商店吗?',function(r){
                 if (r){
-                    $.get('http://localhost:8028/delete?accountNumber='+row.accountNumber,function(result){
+                    $.get('http://localhost:8028/deleteShop?id='+row.id,function(result){
                         if (result.success){
                             $('#dg').datagrid('reload');    // reload the user data
                         } else {
                             $.messager.show({    // show error message
                                 title: '错误',
-                                msg: result.message
+                                msg: result.errorMsg
                             });
                         }
                     },'json');

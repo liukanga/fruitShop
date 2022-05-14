@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" href="../css/shopping-cart.css"/>
+    <script type="text/javascript" src="../js/shopping-cart.js"></script>
+</head>
+<body>
+<div class="main">
+    <table id="cartTable">
+        <thead>
+        <tr>
+            <th><label><input class="check-all check" type="checkbox"/>&nbsp;全选</label></th>
+            <th>商品</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" fruit:${fruitList}">
+            <td class="checkbox"><input class="check-one check" type="checkbox"/></td>
+            <td class="goods"><img th:src="${fruit.imageUrls}" alt=""/><span th:text="${fruit.name}"></span></td>
+            <td class="price" th:text="${fruit.price}"></td>
+            <td class="count"><span class="reduce"></span><input class="count-input" type="text" value="1"/><span class="add">+</span></td>
+            <td class="subtotal" th:text="${fruit.price}"></td>
+            <td class="operation"><span class="delete">删除</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="info1">
+        <div class="info2">
+            <div>
+                <div>收货人：</div>
+                <input id="username" th:value="${user.username}" />
+            </div>
+            <div>
+                <div>联系方式：</div>
+                <input id="contract" th:value="${user.contract}" />
+            </div>
+            <div>
+                <div>收货地址：</div>
+                <select id="address">
+                    <option>中原工学院（北区）南门</option>
+                    <option>中原工学院（北区）西门</option>
+                    <option>中原工学院（北区）北门</option>
+                </select>
+            </div>
+        </div>
+        <div>预计送达时间：现在下单明日中午12:00前可以送达</div>
+    </div>
+    <div class="foot" id="foot">
+        <label class="fl select-all"><input type="checkbox" class="check-all check"/>&nbsp;全选</label>
+        <a class="fl delete" id="deleteAll" href="javascript:;">删除</a>
+        <div class="fr closing" id="buyOrder" onclick="buyOrder()">结 算</div>
+        <div class="fr total">合计：￥<span id="priceTotal">0.00</span></div>
+        <div class="fr selected" id="selected">已选商品<span id="selectedTotal">0</span>件<span class="arrow up">︽</span><span class="arrow down">︾</span></div>
+        <div class="selected-view">
+            <div id="selectedViewList" class="clearfix">
+                <div><img src="images/1.jpg"><span>取消选择</span></div>
+            </div>
+            <span class="arrow">◆<span>◆</span></span>
+        </div>
+</div>
+    <div class="back">
+        <button onclick="toShopList()">返回商家列表</button>
+    </div>
+
+    <div id="settlement" style="display: none">
+        <div>提示消息</div>
+        <div id="message"></div>
+        <div><button onclick="closeMsg()">确认</button></div>
+    </div>
+</div>
+</body>
+</html>

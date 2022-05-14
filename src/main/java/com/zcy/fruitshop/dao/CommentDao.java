@@ -21,4 +21,6 @@ public interface CommentDao {
 
     void deleteById(@Param("id") Long id);
 
+    List<Comment> loadAllComment();
+
 }

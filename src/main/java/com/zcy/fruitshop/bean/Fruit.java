@@ -1,8 +1,11 @@
 package com.zcy.fruitshop.bean;
 
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class Fruit {
@@ -25,7 +28,7 @@ public class Fruit {
     /**
      *  生产日期
      */
-    private LocalDateTime dateOfManufacture;
+    private LocalDate dateOfManufacture;
     /**
      *  保质期
      */
@@ -33,7 +36,7 @@ public class Fruit {
     /**
      *  价格
      */
-    private String price;
+    private double price;
     /**
      *  库存
      */
@@ -67,7 +70,30 @@ public class Fruit {
      */
     private String shopId;
 
-    private LocalDateTime gmtCreated;
-    private LocalDateTime gmtModified;
+    private LocalDate gmtCreated;
+    private LocalDate gmtModified;
 
+    public Fruit(String name, String category, String location, String dateOfManufacture, String qualityGuaranteePeriod, double price, Integer stock, String sugar, String organicAcid, String sugarAcidRatio, String vitamins, String meatQuality, String moisture, String shopId) {
+        this.name = name;
+        this.category = category;
+        this.location = location;
+        if (StringUtils.hasText(dateOfManufacture)){
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.dateOfManufacture = LocalDate.parse(dateOfManufacture, fmt);
+        }
+        this.qualityGuaranteePeriod = qualityGuaranteePeriod;
+        this.price = price;
+        this.stock = stock;
+        this.sugar = sugar;
+        this.organicAcid = organicAcid;
+        this.sugarAcidRatio = sugarAcidRatio;
+        this.vitamins = vitamins;
+        this.meatQuality = meatQuality;
+        this.moisture = moisture;
+        this.shopId = shopId;
+    }
+
+
+
+    public Fruit(){}
 }
