@@ -61,4 +61,9 @@ public class ShopServiceImpl implements ShopService {
     public List<Shop> queryShopByName(String name) {
         return shopDao.queryShopByName(name);
     }
+
+    @Override
+    public List<Shop> queryAllShop() {
+        return shopDao.queryAllShop();
+    }
 }

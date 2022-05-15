@@ -50,4 +50,10 @@ public interface ShopService {
      */
     List<Shop> queryShopByName(@Param("name")String name);
 
+    /**
+     * 查询所有商店
+     * @return
+     */
+    List<Shop> queryAllShop();
+
 }

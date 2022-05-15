@@ -1,8 +1,10 @@
 package com.zcy.fruitshop.controller;
 
+import com.zcy.fruitshop.bean.Fruit;
 import com.zcy.fruitshop.bean.Result;
 import com.zcy.fruitshop.bean.User;
 import com.zcy.fruitshop.exception.FSException;
+import com.zcy.fruitshop.service.FruitService;
 import com.zcy.fruitshop.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -23,48 +27,52 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/loginPage")
-    @ApiOperation("登陆页面")
-    public String login(){
-        return "loginPage";
-    }
-
-    @GetMapping("/reg")
-    @ApiOperation("注册页面")
-    public String register(){
-        return "reg";
-    }
+    @Autowired
+    private FruitService fruitService;
 
     @PostMapping("/login")
     @ApiOperation("用户登录")
     @ResponseBody
-    public Result<User> login(@RequestBody User user, Model model,  HttpSession session){
+    public Result<User> login(@RequestBody User user, HttpServletRequest request){
 
         Result<User> result = userService.login(user.getAccountNumber(), user.getPassword());
-        String accessCode = (String) session.getAttribute("accessCode");
         result.setSuccess(true);
-        if (accessCode.equalsIgnoreCase(user.getAccessCode())){
-            model.addAttribute("user", result.getData());
-            result.setMessage("验证码错误！");
-            result.setSuccess(false);
-        }
+        HttpSession session = request.getSession();
+        session.setAttribute("user", userService.queryUserById(user.getAccountNumber()));
         return result;
     }
 
     @PostMapping("/register")
     @ApiOperation("用户注册")
     @ResponseBody
-    public String register(@RequestBody User user, Model model) throws FSException {
+    public Result<User> register(@RequestBody User user){
 
+        Result<User> result = new Result<>();
         try {
-            Long uid = userService.register(user);
-            user.setAccountNumber(uid);
-            model.addAttribute("msg", "注册成功! 您的账号是 "+uid);
-            return "loginPage";
+            userService.register(user);
+            result.setSuccess(true);
+            result.setMessage("注册成功! 您的账号是 "+ user.getAccountNumber());
+            result.setCode(200);
+            result.setData(user);
         }catch (FSException e){
-            model.addAttribute("msg", "注册失败，请重新尝试！");
-            return "reg";
+            log.error("********* 注册失败，请重新尝试！");
+            result.setSuccess(false);
+            result.setMessage("注册失败，请重新尝试！");
         }
+        return result;
+    }
+
+    @GetMapping("/toMyCart")
+    public String toMyCart(@RequestParam("uid") Long uid, Model model){
+
+        User user = userService.queryUserById(uid);
+        List<Fruit> fruits = fruitService.loadAllFruits();
+
+        model.addAttribute("fruitList", fruits);
+        model.addAttribute("user", user);
+
+        return "shopping-cart";
+
     }
 
 }

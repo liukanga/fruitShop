@@ -49,5 +49,17 @@ public class IndexController {
         }
     }
 
+    @GetMapping("/loginPage")
+    @ApiOperation("登陆页面")
+    public String login(){
+        return "loginPage";
+    }
+
+    @GetMapping("/reg")
+    @ApiOperation("注册页面")
+    public String register(){
+        return "reg";
+    }
+
 
 }

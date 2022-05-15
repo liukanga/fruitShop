@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -69,8 +71,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> loadUserByUsername(String username) {
-        return userDao.queryUserByUsername(username);
+    public List<User> loadUser(String username, String level) {
+
+        Map<String, String> param = new HashMap<>();
+        param.put("username", username);
+        param.put("level", level);
+        return userDao.queryUser(param);
+    }
+
+    @Override
+    public List<User> loadAllUser() {
+
+        return userDao.queryAllUser();
     }
 
 }

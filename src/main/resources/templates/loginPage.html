@@ -6,7 +6,7 @@
     <!--<link rel="stylesheet" href="../static/css/login.css" />
     <script language="JavaScript" src="../static/js/jquery-3.6.0.js"></script>-->
     <link rel="stylesheet" href="../css/login.css" />
-    <script language="JavaScript" src="/js/jquery-3.6.0.js"></script>
+    <script language="JavaScript" src="../js/jquery-3.6.0.js"></script>
 </head>
 <!--<body background="../static/images/login-bg.jpg">-->
 <body>
@@ -41,9 +41,15 @@
                     <input type="password" id="password" placeholder="请输入密码" />
                 </div>
                 <div class="remember" style="margin-bottom: 30px">
-                    <div class="txt" style="margin-left: -40px;width: 120px">验证码：</div>
+                    <!--<div class="txt" style="margin-left: -40px;width: 120px">验证码：</div>
                     <input type="text" id="accessCode"/>
-                    <img src="/kaptcha.png" id="aCode" onclick="switchKaptcha()">
+                    <img src="/kaptcha.png" id="aCode" onclick="switchKaptcha()">-->
+                    <div class="txt" style="margin-left: -40px;width: 120px">身份：</div>
+                    <select id="level">
+                        <option value="商家">商家</option>
+                        <option value="学生">学生</option>
+                        <option value="网站管理员">网站管理员</option>
+                    </select>
                 </div>
 
                 <div class="remember">
@@ -51,7 +57,7 @@
                         <input type="checkbox" name="" checked=""><span>记住密码</span>
                     </div>
                     <div class="regb">
-                        <a href="/user/reg">没有账户？点击注册</a>
+                        <a href="/reg">没有账户？点击注册</a>
                     </div>
                 </div>
                 <div class="indiv">
@@ -62,9 +68,9 @@
     </div>
 
 
-    <div class="copyright">
+    <!--<div class="copyright">
         <p>© 2021 <a href="/user/loginPage">University fruit reservation system</a>. All rights reserved | Design by  <a href="https://blog.csdn.net/John_Mark?spm=1011.2124.3001.5343" target="_blank"> liuziqing </a></p>
-    </div>
+    </div>-->
 
     <script type="text/javascript" src="/js/login.js" ></script>
 

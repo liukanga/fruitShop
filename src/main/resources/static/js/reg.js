@@ -5,30 +5,30 @@ reg_btn.addEventListener("click", function (){
     var name = document.getElementById("name").value;
     var pwd = document.getElementById("password").value;
     var status = document.getElementById("status").value;
-    var duration = document.getElementById("duration").value;
-    var details = document.getElementById("details").value;
+    var address = document.getElementById("address").value;
+    var contract = document.getElementById("contract").value;
+    var description = document.getElementById("description").value;
 
     if(name===''){
         alert("昵称不能为空！");
-        self.location = "/user/reg";
+        self.location = "/reg";
     }
     if(pwd===''){
         alert("密码不能为空！");
-        self.location = "/user/reg";
+        self.location = "/reg";
     }
     if(status==='0'){
         alert("请选择身份！");
-        self.location = "/user/reg";
+        self.location = "/reg";
     }
 
     var user = {
-        "id": null,
-        "name": name,
+        "username": name,
         "password": pwd,
-        "status": status,
-        "novels": [],
-        "duration": duration,
-        "details": details
+        "level": status,
+        "address": address,
+        "contract": contract,
+        "description": description
     };
 
     fetch(
@@ -47,11 +47,11 @@ reg_btn.addEventListener("click", function (){
         })
         .then(function (result) {
             if(result.isSuccess == true || result.success == true){
-                alert("注册成功！您的账号为："+result.data.id);
-                window.location = "/user/loginPage";
+                alert("注册成功！您的账号为："+result.data.accountNumber);
+                window.location = "/loginPage";
             }else{
                 alert("注册失败,请重新尝试！");
-                self.location = "/user/reg";
+                self.location = "/reg";
             }
         })
 

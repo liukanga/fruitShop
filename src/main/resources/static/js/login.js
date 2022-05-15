@@ -4,15 +4,16 @@ login_btn.addEventListener("click", function () {
 
     var aNumber = document.getElementById("accountNumber").value;
     var pwd = document.getElementById("password").value;
-    var accessCode = document.getElementById("accessCode").value;
+    var level = document.getElementById("level").value;
+    // var accessCode = document.getElementById("accessCode").value;
 
-    if(aNumber===''||pwd===''||accessCode===''){
+    if(aNumber===''||pwd===''){
         alert("账号、密码、验证码均不能为！");
     }
     var user = {
         "accountNumber": aNumber,
         "password": pwd,
-        "accessCode": accessCode
+        "level": level
     };
 
     fetch(
@@ -30,17 +31,18 @@ login_btn.addEventListener("click", function () {
             return response.json();
         })
         .then(function (result) {
-            if(result.isSuccess == true || result.success== true){
-                alert("登录成功！"+status);
-
-                if(status==='1'){
-                    window.location = "/user/toUserList";
-                }else{
-                    window.location = "/novel/toNovelList/"+aid;
+            if(result.isSuccess === true || result.success === true){
+                alert("登录成功！");
+                if(level==='网站管理员'){
+                    window.location = "/admin/shopList";
+                }else if (level==='学生'){
+                    window.location = "/shop/shopList";
+                }else {
+                    window.location = "/admin/userList"
                 }
             }else{
                 alert("登录失败,请重新登录！");
-                self.location = "/user/loginPage";
+                window.location = "/loginPage";
             }
 
         })
@@ -49,8 +51,10 @@ login_btn.addEventListener("click", function () {
 
 
 function switchKaptcha(){
+    window.location = "/loginPage";
+}
 
-    var p = document.getElementById("aCode");
-    p.src="http://localhost:8028/kaptcha.png";
+function pwd() {
+
 }
 

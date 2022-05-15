@@ -38,6 +38,9 @@
             <if test="imageUrls!=null">
                 image_url=#{imageUrls},
             </if>
+            <if test="level!=null">
+                level=#{level},
+            </if>
             <if test="description!=null">
                 description=#{description},
             </if>
@@ -52,8 +55,15 @@
         delete from user where id=#{accountNumber}
     </delete>
 
-    <select id="queryUserByUsername" parameterType="java.lang.String" resultMap="userMap">
-        select * from user where username like #{username}
+    <select id="queryUser" resultMap="userMap">
+        select * from user where
+        <if test="username!=null">
+            username like concat('%',#{username},'%') and
+        </if>
+        <if test="level!=null">
+            level=#{level} and
+        </if>
+            id > 0
     </select>
 
     <select id="queryAllUser" resultMap="userMap">

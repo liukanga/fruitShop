@@ -20,27 +20,6 @@
         <result column="shop_id" property="shopId"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
-        <!--<association property="shop" javaType="com.zcy.fruitshop.bean.Shop">
-            <id column="id" property="id"/>
-            <result column="name" property="name"/>
-            <result column="address" property="address"/>
-            <result column="user_id" property="userId"/>
-            <result column="image_url" property="imageUrls"/>
-            <result column="permit" property="permit"/>
-            <result column="b_hours" property="bHours"/>
-            <result column="gmt_created" property="gmtCreated"/>
-            <result column="gmt_modified" property="gmtModified"/>
-            <association property="user" javaType="com.zcy.fruitshop.bean.User">
-                <id column="id" property="accountNumber"/>
-                <result column="username" property="username"/>
-                <result column="password" property="password"/>
-                <result column="image_url" property="imageUrls"/>
-                <result column="description" property="description"/>
-                <result column="contract" property="contract"/>
-                <result column="gmt_created" property="gmtCreated"/>
-                <result column="gmt_modified" property="gmtModified"/>
-            </association>
-        </association>-->
     </resultMap>
 
     <select id="queryFruitByName" parameterType="java.lang.String" resultMap="fruitMap">
@@ -55,26 +34,26 @@
     <update id="updateFruit" parameterType="com.zcy.fruitshop.bean.Fruit">
         update fruit
         <set>
-            <if test="name=!null">
-                name=#{name},
-            </if>
-            <if test="category=!null">
-                category=#{category},
-            </if>
+            name=#{name},
+            category=#{category},
             <if test="imageUrls=!null">
                 image_url=#{imageUrls},
             </if>
-            <if test="price=!null">
-                price=#{price},
-            </if>
-            <if test="stock=!null">
-                stock=#{stock},
-            </if>
-            <if test="shopId=!null">
-                shop_id=#{shopId},
-            </if>
+            location=#{location},
+            date_of_manufacture=#{dateOfManufacture},
+            quality_guarantee_period=#{qualityGuaranteePeriod},
+            sugar=#{sugar},
+            organic_acid=#{organicAcid},
+            sugar_acid_ratio=#{sugarAcidRatio},
+            vitamins=#{vitamins},
+            meat_quality=#{meatQuality},
+            moisture=#{moisture},
+            price=#{price},
+            stock=#{stock},
+            shop_id=#{shopId},
             gmt_modified=now() where id=#{id}
         </set>
+
     </update>
 
     <delete id="deleteFruitById">
@@ -83,6 +62,10 @@
 
     <select id="queryFruitsByCategory" parameterType="java.lang.String" resultMap="fruitMap">
         select * from fruit where category=#{category}
+    </select>
+
+    <select id="loadAllFruits" resultMap="fruitMap">
+        select * from fruit
     </select>
 
 

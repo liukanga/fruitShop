@@ -16,28 +16,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@Api(tags = "商店模块API")
-@RestController(value = "/sys/shop/")
-public class SycShopController {
+@Api(tags = "商店模块RestAPI")
+@RestController
+public class RestShopController {
 
     @Autowired
     private ShopService shopService;
 
     @ApiOperation("添加商店")
     @PostMapping(value = "/addShop")
-    public Result<Shop> addShop(@RequestBody Shop shop) throws FSException {
+    public Result<Shop> addShop(@RequestParam("name")String name,
+                                @RequestParam("address")String address,
+                                @RequestParam("userId")Long userId,
+                                @RequestParam("permit")String permit,
+                                @RequestParam("description")String description,
+                                @RequestParam("bhours")String bHours){
         Result<Shop> result = new Result<>();
+        Shop shop = new Shop(name, address, userId, permit, description, bHours);
         try {
             shopService.addShop(shop);
             result.setData(shop);
             result.setSuccess(true);
             result.setCode(200);
             result.setMessage("添加商店成功");
-            return result;
         }catch (FSDBException e){
             log.error("********* 添加商店失败", e);
-            throw new  FSException("添加商店失败");
+            result.setSuccess(false);
+            result.setMessage("添加商店失败");
         }
+        return result;
     }
 
     @ApiOperation("根据ID查询商店")
@@ -54,26 +61,40 @@ public class SycShopController {
     }
 
     @ApiOperation("更新商店")
-    @PutMapping(value = "/updateShop")
-    public Result<Shop> updateShop(@RequestBody Shop shop) throws FSException{
+    @PostMapping(value = "/updateShop/{id}")
+    public Result<Shop> updateShop(@RequestParam("name")String name,
+                                   @PathVariable("id")Long id,
+                                   @RequestParam("address")String address,
+                                   @RequestParam("userId")Long userId,
+                                   @RequestParam("permit")String permit,
+                                   @RequestParam("description")String description,
+                                   @RequestParam("bhours")String bHours){
         Result<Shop> result = new Result<>();
+        Shop shop = new Shop(name, address, userId, permit, description, bHours);
+        shop.setId(id);
         try {
             shopService.updateShop(shop);
-            result.setData(shopService.queryShopById(shop.getId()));
+            result.setData(shop);
             result.setMessage("更新商店成功");
             result.setCode(200);
             result.setSuccess(true);
-            return result;
         }catch (FSDBException e){
             log.error("********* 更新商店失败", e);
-            throw new FSException("更新商店失败");
+            result.setSuccess(false);
+            result.setMessage("更新商店失败");
         }
+        return result;
     }
 
     @ApiOperation("删除商店")
-    @DeleteMapping(value = "/deleteShop")
-    public Integer deleteShopById(@RequestParam(value = "id") Long id) {
-        return shopService.deleteShopById(id);
+    @GetMapping("/deleteShop")
+    public Result<String> deleteShop(@RequestParam("id")Long id){
+
+        Result<String> result = new Result<>();
+        shopService.deleteShopById(id);
+
+        result.setSuccess(true);
+        return result;
     }
 
     @ApiOperation("根据店名查询")
@@ -88,6 +109,13 @@ public class SycShopController {
         result.setMessage(CollectionUtils.isEmpty(shopList) ? FSConstant.NO_DATA_FOUND : FSConstant.SUCCESS);
 
         return result;
+    }
+
+
+    @PostMapping("/allShop")
+    public List<Shop> allShops(){
+
+        return shopService.queryAllShop();
     }
 
 }

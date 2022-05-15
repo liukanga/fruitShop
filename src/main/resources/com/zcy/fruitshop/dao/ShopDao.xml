@@ -8,6 +8,7 @@
         <result column="user_id" property="userId"/>
         <result column="image_url" property="imageUrls"/>
         <result column="permit" property="permit"/>
+        <result column="description" property="description"/>
         <result column="b_hours" property="bHours"/>
         <result column="gmt_created" property="gmtCreated"/>
         <result column="gmt_modified" property="gmtModified"/>
@@ -28,8 +29,8 @@
     </select>
 
     <insert id="addShop" parameterType="com.zcy.fruitshop.bean.Shop" useGeneratedKeys="true" keyProperty="id">
-        insert into shop(name, address, user_id, image_url, permit, b_hours, gmt_created, gmt_modified)
-        values (#{name}, #{address}, #{userId}, #{imageUrls}, #{permit}, #{bHours}, now(), now())
+        insert into shop(name, address, user_id, image_url, description, permit, b_hours, gmt_created, gmt_modified)
+        values (#{name}, #{address}, #{userId}, #{imageUrls}, #{description}, #{permit}, #{bHours}, now(), now())
     </insert>
 
     <update id="updateShop" parameterType="com.zcy.fruitshop.bean.Shop">
@@ -46,6 +47,9 @@
             </if>
             <if test="imageUrls!=null">
                 image_url=#{imageUrls},
+            </if>
+            <if test="description!=null">
+                description=#{description},
             </if>
             <if test="permit!=null">
                 permit=#{permit},
@@ -67,6 +71,10 @@
 
     <select id="queryShopByName" parameterType="java.lang.String" resultMap="shopMap">
         select * from shop where name like #{name}
+    </select>
+
+    <select id="queryAllShop" resultMap="shopMap">
+        select * from shop
     </select>
 
 </mapper>

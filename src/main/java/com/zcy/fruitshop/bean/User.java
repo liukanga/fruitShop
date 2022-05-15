@@ -15,7 +15,7 @@ public class User {
 
     private String address;
 
-    private int level;
+    private String level;
 
     private String imageUrls;
 
@@ -29,4 +29,15 @@ public class User {
 
     private LocalDateTime gmtModified;
 
+    public User(String username, String password, String address, String level, String description, String contract) {
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.level = level;
+        this.description = description;
+        this.contract = contract;
+    }
+
+    public User() {
+    }
 }

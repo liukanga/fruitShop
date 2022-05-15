@@ -1,9 +1,10 @@
 
 body{
-    text-align: center;
-    background-repeat:no-repeat ;background-size:100% 100%;
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
     background-attachment: fixed;
-    font-family: "华文楷体";
+    background-size: 100% 100%;
+    font-weight: 500;
 }
 .reg-contain>div:first-child{
     margin-top: 40px;

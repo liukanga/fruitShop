@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8">
+		<title th:text="${shopUser.name}"></title>
+		<link rel="stylesheet" href="../css/shopDetail.css" />
+		<script type="text/javascript" src="../js/shopDetail.js"></script>
+	</head>
+	<body>
+		 
+		<header></header>
+		
+		<div class="shop_detail">
+			<div th:text="|店名：${shopUser.name}|"></div>
+			<div th:text="|地址：${shopUser.address}|"></div>
+			<div th:text="|联系方式：${shopUser.contract}|"></div>
+			<div th:text="|营业时间：${shopUser.bHours}|"></div>
+		</div>
+		<div class="main">
+			<table class="flist">
+				<thead class="ft">
+					<tr class="ftr">
+						<th>水果名</th>
+						<th>单价</th>
+						<th>产地</th>
+						<th>生产日期</th>
+						<th>分类</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="ft">
+					<tr class="ftr" th:each="fruit:${fruitList}">
+						<td th:text="${fruit.name}" th:onclick="showDetails([[${fruit.sugar}]],[[${fruit.organicAcid}]],[[${fruit.sugarAcidRatio}]],[[${fruit.vitamins}]],[[${fruit.meatQuality}]],[[${fruit.moisture}]],[[${fruit.qualityGuaranteePeriod}]])"></td>
+						<td th:text="${fruit.price}"></td>
+						<td th:text="${fruit.location}"></td>
+						<td th:text="${fruit.dateOfManufacture}"></td>
+						<td th:text="${fruit.category}"></td>
+						<td><button th:onclick="addToCart([[${fruit.id}]])">加入购物车</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="clist">
+				<div class="titl">评论区</div>
+				<div class="ccontent" th:each="comment:${commentList}">
+					<div th:text="|${comment.username}：|"></div>
+					<div th:text="${comment.content}"></div>
+					<div th:text="${comment.gmtCreated}"></div>
+				</div>
+				<div class="sComment">
+					<input id="content" style="width: 380px;height: 50px;" placeholder="发布评论"  />
+					<div><button style="margin-top: 15px;" th:onclick="addComment([[${user.accountNumber}]], [[${shopUser.id}]])">发布</button></div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="fdetail" style="display: none;">
+			<div id="fname">营养详情</div>
+			<div id="fsugar">糖分：暂无数据</div>
+			<div id="forganicAcid">有机酸：暂无数据</div>
+			<div id="fso">糖酸比：暂无数据</div>
+			<div id="fvt">维生素：暂无数据</div>
+			<div id="fmeat">肉质：暂无数据</div>
+			<div id="fmoisture">水分：暂无数据</div>
+			<div id="fquality">保质期：暂无数据</div>
+			<div><button onclick="closeDe()">关闭</button></div>
+		</div>
+
+		<div class="page_num">
+			<div>
+				<button onclick="toShopList()">返回</button>
+				<button th:onclick="toCart([[${user.accountNumber}]])">购物车</button>
+			</div>
+			<button>上一页</button>
+			<p>1</p>
+			<p>2</p>
+			<p>3</p>
+			<p>4</p>
+			<p>5</p>
+			<p>6</p>
+			<p>7</p>
+			<button>下一页</button>
+			<p>共7页</p>
+		</div>
+		
+	</body>
+</html>

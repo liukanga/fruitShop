@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<title>高校水果预订系统</title>
+<link rel="stylesheet" href="../css/shopList.css" />
+<script language="JavaScript" src="../js/jquery-3.6.0.js"></script>
+
+</head>
+<body>
+	
+	<header>
+		<img class="img1" src="../images/fruit.png" />
+		<div class="titl">高校水果预订系统</div>
+		<div class="user-details">
+			<img class="img2" src="../images/tx.jpg" />
+			<div th:text="${currentUser.username}"></div>
+		</div>
+	</header>
+	
+	<div class="query">
+		<input id="shop_name"  placeholder="请输入店铺名" />
+		<button onclick="queryShop()">搜索</button>
+	</div>
+	
+	<div th:if="${type} eq 1" class="shop_list">
+		<div class="td" th:each="shop:${shopList1}">
+			<div th:onclick="toShop([[${shop.id}]])">
+				<div th:text="${shop.name}"></div>
+				<div th:text="${shop.address}"></div>
+				<div th:text="${shop.description}"></div>
+			</div>
+		</div>
+	</div>
+	<div th:if="${type} eq 1" class="shop_list">
+		<div class="td" th:each="shop:${shopList2}">
+			<div th:onclick="toShop([[${shop.id}]])">
+				<div th:text="${shop.name}"></div>
+				<div th:text="${shop.address}"></div>
+				<div th:text="${shop.description}"></div>
+			</div>
+		</div>
+	</div>
+	<div th:if="${type} eq 1" class="shop_list">
+		<div class="td" th:each="shop:${shopList3}">
+			<div th:onclick="toShop([[${shop.id}]])">
+				<div th:text="${shop.name}"></div>
+				<div th:text="${shop.address}"></div>
+				<div th:text="${shop.description}"></div>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${type} eq 2" class="shop_list">
+		<div class="td" th:each="shop:${shops}">
+			<div th:onclick="toShop([[${shop.id}]])">
+				<div th:text="${shop.name}"></div>
+				<div th:text="${shop.address}"></div>
+				<div th:text="${shop.description}"></div>
+			</div>
+		</div>
+	</div>
+
+	
+	<div class="page_num">
+		<button>上一页</button>
+		<p>1</p>
+		<p>2</p>
+		<p>3</p>
+		<p>4</p>
+		<p>5</p>
+		<p>6</p>
+		<p>7</p>
+		<button>下一页</button>
+		<p>共7页</p>
+	</div>
+    
+</body>
+<script type="text/javascript" src="../js/shopList.js"></script>
+</html>

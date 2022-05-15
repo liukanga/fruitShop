@@ -19,4 +19,6 @@ public interface CommentService {
 
     int deleteCommentById(Long id);
 
+    List<Comment> loadAllComment();
+
 }
