@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "水果模块RestAPI")
 @RestController
-public class SycFruitController {
+public class RestFruitController {
 
     @Autowired
     private FruitService fruitService;

@@ -38,6 +38,9 @@
             <if test="imageUrls!=null">
                 image_url=#{imageUrls},
             </if>
+            <if test="level!=null">
+                level=#{level},
+            </if>
             <if test="description!=null">
                 description=#{description},
             </if>

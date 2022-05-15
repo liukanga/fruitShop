@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "商店模块RestAPI")
 @RestController
-public class SycShopController {
+public class RestShopController {
 
     @Autowired
     private ShopService shopService;
