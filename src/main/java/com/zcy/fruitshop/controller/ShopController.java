@@ -104,7 +104,9 @@ public class ShopController {
 
         model.addAttribute("shops", shops);
         model.addAttribute("currentUser", currentUser);
-        model.addAttribute("type", 1);
+        model.addAttribute("type", 2);
+
+        return "shopList";
 
     }
 

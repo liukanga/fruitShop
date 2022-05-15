@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
@@ -68,12 +67,12 @@ public class Fruit {
     /**
      *  商家id
      */
-    private String shopId;
+    private Long shopId;
 
     private LocalDate gmtCreated;
     private LocalDate gmtModified;
 
-    public Fruit(String name, String category, String location, String dateOfManufacture, String qualityGuaranteePeriod, double price, Integer stock, String sugar, String organicAcid, String sugarAcidRatio, String vitamins, String meatQuality, String moisture, String shopId) {
+    public Fruit(String name, String category, String location, String dateOfManufacture, String qualityGuaranteePeriod, double price, Integer stock, String sugar, String organicAcid, String sugarAcidRatio, String vitamins, String meatQuality, String moisture, Long shopId) {
         this.name = name;
         this.category = category;
         this.location = location;

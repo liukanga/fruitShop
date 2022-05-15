@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>水果列表</title>
+    <link rel="stylesheet" href="/css/userList.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/js/admin.js"></script>
+</head>
+<body>
+<header>
+    <img class="img1" src="../images/fruit.png" />
+    <div class="titl">高校水果预订系统</div>
+    <div class="user-details">
+        <img class="img2" src="../images/tx.jpg" />
+        <p th:text="${currentUser.username}"></p>
+    </div>
+</header>
+<div style="margin-top: 50px;">
+    <table id="dg" title="水果表" class="easyui-datagrid" style="width:100%;height:600px;"
+           th:url="${targetUrl}"
+           toolbar="#toolbar" pagination="true"
+           rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+        <tr>
+            <th field="id" width="30">编号</th>
+            <th field="name" width="80">水果名</th>
+            <th field="category" width="50">水果分类</th>
+            <th field="location" width="50">产地</th>
+            <th field="dateOfManufacture" width="80">生产日期</th>
+            <th field="qualityGuaranteePeriod" width="80">保质期</th>
+            <th field="price" width="30">价格</th>
+            <th field="stock" width="30">数量</th>
+            <th field="sugar" width="30">糖分</th>
+            <th field="organicAcid" width="30">有机酸</th>
+            <th field="sugarAcidRatio" width="30">糖酸比</th>
+            <th field="vitamins" width="50">维生素</th>
+            <th field="meatQuality" width="50">肉质</th>
+            <th field="moisture" width="50">水分</th>
+            <th field="shopId" width="50">所属商店id</th>
+        </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newFruit()">添加水果</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editFruit()">编辑水果</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyFruit()">删除水果</a>
+    </div>
+
+    <div id="dlg" class="easyui-dialog" style="width:800px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px">
+                <input name="name" class="easyui-textbox" required="true" label="水果名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="category" class="easyui-textbox" required="true" label="水果分类:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="location" class="easyui-textbox" required="true" label="产地:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="dateOfManufacture" class="easyui-textbox" required="true" label="生产日期:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="qualityGuaranteePeriod" class="easyui-textbox" required="true" label="保质期:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="price" class="easyui-textbox" required="true" label="价格:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="stock" class="easyui-textbox" required="true" label="数量:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="sugar" class="easyui-textbox" required="true" label="糖分:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="organicAcid" class="easyui-textbox" required="true" label="有机酸:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="sugarAcidRatio" class="easyui-textbox" required="true" label="糖酸比:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="vitamins" class="easyui-textbox" required="true" label="维生素:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="meatQuality" class="easyui-textbox" required="true" label="肉质:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="moisture" class="easyui-textbox" required="true" label="水分:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input name="shopId" class="easyui-textbox" required="true" label="所属商店Id:" style="width:100%">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveFruit()" style="width:90px">确认</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var url;
+
+    function newFruit(){
+        $('#dlg').dialog('open').dialog('center').dialog('setTitle','添加水果');
+        $('#fm').form('clear');
+        url = 'http://localhost:8028/addFruit';
+    }
+    function editFruit(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑水果');
+            $('#fm').form('load',row);
+            url = 'http://localhost:8028/updateFruit/'+row.id;
+        }
+    }
+    function saveFruit(){
+        $('#fm').form('submit',{
+            url: url,
+            iframe: false,
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                var result = eval('('+result+')');
+                if (result.success){
+                    $('#dlg').dialog('close');        // close the dialog
+                    $('#dg').datagrid('reload');
+                } else {
+                    $.messager.show({
+                        title: 'message',
+                        msg: result.message
+                    });
+                }
+            }
+        });
+    }
+    function destroyFruit(){
+        var row = $('#dg').datagrid('getSelected');
+        if (row){
+            $.messager.confirm('提示','确认要删除此水果吗?',function(r){
+                if (r){
+                    $.get('http://localhost:8028/deleteFruit?id='+row.id,function(result){
+                        if (result.success){
+                            $('#dg').datagrid('reload');    // reload the user data
+                        } else {
+                            $.messager.show({    // show error message
+                                title: '错误',
+                                msg: result.errorMsg
+                            });
+                        }
+                    },'json');
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

@@ -38,7 +38,7 @@ login_btn.addEventListener("click", function () {
                 }else if (level==='学生'){
                     window.location = "/shop/shopList";
                 }else {
-                    window.location = "/admin/userList"
+                    window.location = "/user/"+ aNumber +"/fruitList"
                 }
             }else{
                 alert("登录失败,请重新登录！");

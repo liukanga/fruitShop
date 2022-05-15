@@ -70,7 +70,7 @@
     </select>
 
     <select id="queryShopByName" parameterType="java.lang.String" resultMap="shopMap">
-        select * from shop where name like #{name}
+        select * from shop where name like concat('%', #{name}, '%')
     </select>
 
     <select id="queryAllShop" resultMap="shopMap">

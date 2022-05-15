@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Api(tags = "水果模块RestAPI")
@@ -62,7 +63,7 @@ public class RestFruitController {
                                       @RequestParam("vitamins")String vitamins,
                                       @RequestParam("meatQuality")String meatQuality,
                                       @RequestParam("moisture")String moisture,
-                                      @RequestParam("shopId")String shopId){
+                                      @RequestParam("shopId")Long shopId){
 
         Result<Fruit> result = new Result<>();
         Fruit fruit = new Fruit(name,category,location,dateOfManufacture,qualityGuaranteePeriod,price,stock,sugar,organicAcid,sugarAcidRatio,vitamins,meatQuality,moisture,shopId);
@@ -96,7 +97,7 @@ public class RestFruitController {
                                      @RequestParam(value = "vitamins", required = false)String vitamins,
                                      @RequestParam(value = "meatQuality", required = false)String meatQuality,
                                      @RequestParam(value = "moisture", required = false)String moisture,
-                                     @RequestParam(value = "shopId", required = false)String shopId){
+                                     @RequestParam(value = "shopId", required = false)Long shopId){
         Result<Fruit> result = new Result<>();
         Fruit fruit = new Fruit(name,category,location,dateOfManufacture,qualityGuaranteePeriod,price,stock,sugar,organicAcid,sugarAcidRatio,vitamins,meatQuality,moisture,shopId);
         fruit.setId(id);
@@ -130,5 +131,14 @@ public class RestFruitController {
     public List<Fruit> allFruits(){
 
         return fruitService.loadAllFruits();
+    }
+
+
+    @PostMapping("/allFruit/{shId}")
+    public List<Fruit> loadFruitByShopId(@PathVariable("shId")Long shId){
+
+        List<Fruit> fruitList = fruitService.loadAllFruits();
+
+        return fruitList.stream().filter(fruit -> fruit.getShopId().equals(shId)).collect(Collectors.toList());
     }
 }
