@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "用户模块RestAPI")
 @RestController
-public class SysUserController {
+public class RestUserController {
 
     @Autowired
     private UserService userService;

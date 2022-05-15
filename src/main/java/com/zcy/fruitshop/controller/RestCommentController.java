@@ -21,7 +21,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = "评论模块RestAPI")
 @RestController
-public class SysCommentController {
+public class RestCommentController {
 
     @Autowired
     private CommentService commentService;

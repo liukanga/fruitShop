@@ -14,7 +14,7 @@
 		<div class="titl">高校水果预订系统</div>
 		<div class="user-details">
 			<img class="img2" src="../images/tx.jpg" />
-			<p>小明</p>
+			<div th:text="${currentUser.username}"></div>
 		</div>
 	</header>
 	
@@ -23,7 +23,7 @@
 		<button onclick="queryShop()">搜索</button>
 	</div>
 	
-	<div class="shop_list">
+	<div th:if="${type} eq 1" class="shop_list">
 		<div class="td" th:each="shop:${shopList1}">
 			<div th:onclick="toShop([[${shop.id}]])">
 				<div th:text="${shop.name}"></div>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="shop_list">
+	<div th:if="${type} eq 1" class="shop_list">
 		<div class="td" th:each="shop:${shopList2}">
 			<div th:onclick="toShop([[${shop.id}]])">
 				<div th:text="${shop.name}"></div>
@@ -41,8 +41,18 @@
 			</div>
 		</div>
 	</div>
-	<div class="shop_list">
+	<div th:if="${type} eq 1" class="shop_list">
 		<div class="td" th:each="shop:${shopList3}">
+			<div th:onclick="toShop([[${shop.id}]])">
+				<div th:text="${shop.name}"></div>
+				<div th:text="${shop.address}"></div>
+				<div th:text="${shop.description}"></div>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${type} eq 2" class="shop_list">
+		<div class="td" th:each="shop:${shops}">
 			<div th:onclick="toShop([[${shop.id}]])">
 				<div th:text="${shop.name}"></div>
 				<div th:text="${shop.address}"></div>

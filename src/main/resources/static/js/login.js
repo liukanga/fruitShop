@@ -7,7 +7,7 @@ login_btn.addEventListener("click", function () {
     var level = document.getElementById("level").value;
     // var accessCode = document.getElementById("accessCode").value;
 
-    if(aNumber===''||pwd===''||accessCode===''){
+    if(aNumber===''||pwd===''){
         alert("账号、密码、验证码均不能为！");
     }
     var user = {
@@ -33,9 +33,9 @@ login_btn.addEventListener("click", function () {
         .then(function (result) {
             if(result.isSuccess === true || result.success === true){
                 alert("登录成功！");
-                if(level==='1'){
+                if(level==='网站管理员'){
                     window.location = "/admin/shopList";
-                }else if (level==='2'){
+                }else if (level==='学生'){
                     window.location = "/shop/shopList";
                 }else {
                     window.location = "/admin/userList"

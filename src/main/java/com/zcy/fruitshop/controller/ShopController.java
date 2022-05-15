@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class ShopController {
     private CommentService commentService;
 
     @GetMapping("/shopList")
-    public String toShopList(Model model){
+    public String toShopList(Model model, HttpServletRequest request){
 
         List<Shop> shopList = shopService.queryAllShop();
         List<Shop> shopList1 = new ArrayList<>();
@@ -51,16 +53,23 @@ public class ShopController {
                 shopList3.add(shopList.get(i-1));
             }
         }
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
 
         model.addAttribute("shopList1", shopList1);
         model.addAttribute("shopList2", shopList2);
         model.addAttribute("shopList3", shopList3);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("type", 1);
 
         return "shopList";
     }
 
     @GetMapping("/toShop")
-    public String toShop(@RequestParam("id")Long id, Model model){
+    public String toShop(@RequestParam("id")Long id, Model model, HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
 
         Shop shop = shopService.queryShopById(id);
         User user = userService.queryUserById(shop.getUserId());
@@ -79,10 +88,23 @@ public class ShopController {
         model.addAttribute("shopUser", shopUser);
         model.addAttribute("fruitList", fruits);
         model.addAttribute("commentList", commentUserList);
-        model.addAttribute("user", user);
+        model.addAttribute("user", currentUser);
 
 
         return "shopDetail";
+
+    }
+
+    @GetMapping("queryShop")
+    public String loadShopByName(@RequestParam("name")String name, HttpServletRequest request, Model model){
+
+        List<Shop> shops = shopService.queryShopByName(name);
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+
+        model.addAttribute("shops", shops);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("type", 1);
 
     }
 
