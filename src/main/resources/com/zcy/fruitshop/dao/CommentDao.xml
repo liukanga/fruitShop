@@ -38,5 +38,8 @@
     <delete id="deleteById">
         delete from comment where id=#{id}
     </delete>
+    <select id="getCommentByShopId" resultMap="commentMap">
+        select * from comment where shop_id = #{id}
+    </select>
 
 </mapper>

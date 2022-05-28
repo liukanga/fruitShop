@@ -63,4 +63,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> loadAllComment() {
         return commentDao.loadAllComment();
     }
+
+    @Override
+    public List<Comment> getCommentByShopId(Long id) {
+        return commentDao.getCommentByShopId(id);
+    }
 }

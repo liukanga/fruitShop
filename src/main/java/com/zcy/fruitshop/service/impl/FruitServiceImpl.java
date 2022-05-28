@@ -1,5 +1,7 @@
 package com.zcy.fruitshop.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.Fruit;
 import com.zcy.fruitshop.dao.FruitDao;
 import com.zcy.fruitshop.exception.FSDBException;
@@ -58,5 +60,23 @@ public class FruitServiceImpl implements FruitService {
     @Override
     public List<Fruit> loadAllFruits() {
         return fruitDao.loadAllFruits();
+    }
+
+    @Override
+    public PageInfo<Fruit> getFruitsByShopId(Long id,Integer page) {
+        PageHelper.startPage(page,8);
+        List<Fruit> fruitsByShopId = fruitDao.getFruitsByShopId(id);
+        PageInfo<Fruit> pageInfo = new PageInfo<>(fruitsByShopId);
+        return pageInfo;
+    }
+
+    @Override
+    public List<Fruit> getCartFruits(Long uid,Long sid) {
+        return fruitDao.getCartFruits(uid,sid);
+    }
+
+    @Override
+    public int addToCart(Long sid, Long fid, Long uid) {
+        return fruitDao.addToCart(sid,fid,uid);
     }
 }

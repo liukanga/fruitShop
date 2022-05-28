@@ -21,4 +21,5 @@ public interface CommentService {
 
     List<Comment> loadAllComment();
 
+    List<Comment> getCommentByShopId(Long id);
 }

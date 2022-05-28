@@ -4,6 +4,7 @@
     <resultMap id="fruitMap" type="com.zcy.fruitshop.bean.Fruit">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
+        <result column="num" property="num"/>
         <result column="category" property="category"/>
         <result column="image_url" property="imageUrls"/>
         <result column="location" property="location"/>
@@ -67,6 +68,13 @@
     <select id="loadAllFruits" resultMap="fruitMap">
         select * from fruit
     </select>
-
-
+    <select id="getFruitsByShopId" resultMap="fruitMap">
+        select * from fruit where shop_id = #{id}
+    </select>
+    <select id="getCartFruits" resultMap="fruitMap">
+        select f.*,c.num num from cart c,fruit f where c.fid=f.id and uid = #{uid} and sid = #{sid}
+    </select>
+    <insert id="addToCart">
+        insert into cart(fid,uid,sid) value (#{fid},#{uid},#{sid})
+    </insert>
 </mapper>

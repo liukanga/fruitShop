@@ -1,5 +1,6 @@
 package com.zcy.fruitshop.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.Fruit;
 import com.zcy.fruitshop.exception.FSDBException;
 
@@ -19,4 +20,9 @@ public interface FruitService {
 
     List<Fruit> loadAllFruits();
 
+    PageInfo<Fruit> getFruitsByShopId(Long id,Integer page);
+
+    List<Fruit> getCartFruits(Long uid,Long sid);
+
+    int addToCart(Long sid, Long fid, Long accountNumber);
 }

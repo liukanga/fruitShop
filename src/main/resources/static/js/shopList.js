@@ -10,7 +10,7 @@ function queryShop() {
     if(value === '' || value === null){
         window.location = "/shop/shopList";
     }else{
-        window.location = "/shop/queryShop?name="+value;
+        window.location = "/shop/shopList?name="+value;
     }
 
 

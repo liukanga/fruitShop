@@ -115,7 +115,7 @@ public class RestShopController {
     @PostMapping("/allShop")
     public List<Shop> allShops(){
 
-        return shopService.queryAllShop();
+        return shopService.queryAllShop(null,1).getList();
     }
 
 }

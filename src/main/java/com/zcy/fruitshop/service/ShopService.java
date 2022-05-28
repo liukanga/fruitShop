@@ -1,5 +1,6 @@
 package com.zcy.fruitshop.service;
 
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.Shop;
 import com.zcy.fruitshop.exception.FSDBException;
 import org.apache.ibatis.annotations.Param;
@@ -54,6 +55,6 @@ public interface ShopService {
      * 查询所有商店
      * @return
      */
-    List<Shop> queryAllShop();
+    PageInfo<Shop> queryAllShop(String name,Integer page);
 
 }

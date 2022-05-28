@@ -1,5 +1,7 @@
 package com.zcy.fruitshop.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.Shop;
 import com.zcy.fruitshop.dao.ShopDao;
 import com.zcy.fruitshop.exception.FSDBException;
@@ -59,11 +61,15 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<Shop> queryShopByName(String name) {
+
         return shopDao.queryShopByName(name);
     }
 
     @Override
-    public List<Shop> queryAllShop() {
-        return shopDao.queryAllShop();
+    public PageInfo<Shop> queryAllShop(String name,Integer page) {
+        PageHelper.startPage(page,9);
+        List<Shop> shops = shopDao.queryAllShop(name);
+        PageInfo<Shop> pageInfo = new PageInfo<>(shops);
+        return pageInfo;
     }
 }

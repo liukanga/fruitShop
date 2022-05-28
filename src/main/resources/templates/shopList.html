@@ -19,7 +19,7 @@
 	</header>
 	
 	<div class="query">
-		<input id="shop_name"  placeholder="请输入店铺名(默认查询所有商店)" />
+		<input id="shop_name"  placeholder="请输入店铺名(默认查询所有商店)" th:value="${name}"/>
 		<button onclick="queryShop()">搜索</button>
 	</div>
 	
@@ -63,18 +63,21 @@
 
 	
 	<div class="page_num">
-		<button>上一页</button>
-		<p>1</p>
-		<p>2</p>
-		<p>3</p>
-		<p>4</p>
-		<p>5</p>
-		<p>6</p>
-		<p>7</p>
-		<button>下一页</button>
-		<p>共7页</p>
+		<button th:if="${pageInfo.pageNum!=1}" th:onclick="prePage([[${pageInfo.prePage}]])">上一页</button>
+		<div th:each="page:${#numbers.sequence(1,pageInfo.pages)}">
+			<a th:href="@{/shop/shopList(page=${page})}"><p th:text="${page}"></p></a>
+		</div>
+		<button th:if="${pageInfo.pageNum!=pageInfo.pages}" th:onclick="nextPage([[${pageInfo.nextPage}]])">下一页</button>
+		<p>共<span th:text="${pageInfo.pages}"></span>页</p>
 	</div>
-    
+    <script>
+		function nextPage(page) {
+			window.location.href="/shop/shopList?page="+page;
+		}
+		function prePage(page) {
+			window.location.href="/shop/shopList?page="+page;
+		}
+	</script>
 </body>
 <script type="text/javascript" src="../js/shopList.js"></script>
 </html>

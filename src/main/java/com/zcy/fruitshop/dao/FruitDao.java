@@ -2,6 +2,7 @@ package com.zcy.fruitshop.dao;
 
 import com.zcy.fruitshop.bean.Fruit;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,9 @@ public interface FruitDao {
 
     List<Fruit> loadAllFruits();
 
+    List<Fruit> getFruitsByShopId(Long id);
+
+    List<Fruit> getCartFruits(@Param("uid") Long uid, @Param("sid") Long sid);
+
+    int addToCart(@Param("sid")Long sid,@Param("fid") Long fid,@Param("uid") Long uid);
 }

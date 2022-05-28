@@ -58,9 +58,9 @@ function toShopList() {
 	window.location = "/shop/shopList";
 }
 
-function toCart(uid){
+function toCart(sid){
 
-	window.location = "/user/toMyCart?uid="+uid;
+	window.location = "/user/toMyCart?sid="+sid;
 }
 
 function addComment(uid, shid) {

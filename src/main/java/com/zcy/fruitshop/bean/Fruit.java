@@ -11,6 +11,7 @@ public class Fruit {
 
     private Long id;
     private String name;
+    private Integer num;
 
     /**
      *  类别

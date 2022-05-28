@@ -1,6 +1,7 @@
 package com.zcy.fruitshop.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.*;
 import com.zcy.fruitshop.service.CommentService;
 import com.zcy.fruitshop.service.FruitService;
@@ -38,9 +39,10 @@ public class ShopController {
     private CommentService commentService;
 
     @GetMapping("/shopList")
-    public String toShopList(Model model, HttpServletRequest request){
+    public String toShopList(@RequestParam(value = "name",defaultValue = "")String name,@RequestParam(value = "page",defaultValue = "1")Integer page,Model model, HttpServletRequest request){
 
-        List<Shop> shopList = shopService.queryAllShop();
+        PageInfo<Shop> pageInfo = shopService.queryAllShop(name,page);
+        List<Shop> shopList = pageInfo.getList();
         List<Shop> shopList1 = new ArrayList<>();
         List<Shop> shopList2 = new ArrayList<>();
         List<Shop> shopList3 = new ArrayList<>();
@@ -61,12 +63,15 @@ public class ShopController {
         model.addAttribute("shopList3", shopList3);
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("type", 1);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("name", name);
+
 
         return "shopList";
     }
 
     @GetMapping("/toShop")
-    public String toShop(@RequestParam("id")Long id, Model model, HttpServletRequest request){
+    public String toShop(@RequestParam(value = "page",defaultValue = "1")Integer page,@RequestParam("id")Long id, Model model, HttpServletRequest request){
 
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
@@ -75,9 +80,10 @@ public class ShopController {
         User user = userService.queryUserById(shop.getUserId());
         ShopUser shopUser = CommonUtils.toShopUser(shop, user);
 
-        List<Fruit> fruits = fruitService.loadAllFruits();
+        PageInfo<Fruit> pageInfo = fruitService.getFruitsByShopId(id,page);
 
-        List<Comment> comments = commentService.loadAllComment();
+
+        List<Comment> comments = commentService.getCommentByShopId(id);
         List<CommentUser> commentUserList = new ArrayList<>();
         for (Comment comment : comments){
             User commentator = userService.queryUserById(comment.getUserId());
@@ -86,9 +92,10 @@ public class ShopController {
         }
 
         model.addAttribute("shopUser", shopUser);
-        model.addAttribute("fruitList", fruits);
+        model.addAttribute("fruitList", pageInfo.getList());
         model.addAttribute("commentList", commentUserList);
         model.addAttribute("user", currentUser);
+        model.addAttribute("pageInfo", pageInfo);
 
 
         return "shopDetail";
@@ -96,7 +103,7 @@ public class ShopController {
     }
 
     @GetMapping("queryShop")
-    public String loadShopByName(@RequestParam("name")String name, HttpServletRequest request, Model model){
+    public String loadShopByName(@RequestParam(value = "name",defaultValue = "null")String name, HttpServletRequest request, Model model){
 
         List<Shop> shops = shopService.queryShopByName(name);
         HttpSession session = request.getSession();

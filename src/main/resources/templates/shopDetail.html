@@ -5,6 +5,7 @@
 		<title th:text="${shopUser.name}"></title>
 		<link rel="stylesheet" href="../css/shopDetail.css" />
 		<script type="text/javascript" src="../js/shopDetail.js"></script>
+		<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 	</head>
 	<body>
 		 
@@ -68,19 +69,40 @@
 		<div class="page_num">
 			<div>
 				<button onclick="toShopList()">返回</button>
-				<button th:onclick="toCart([[${user.accountNumber}]])">购物车</button>
+				<button th:onclick="toCart([[${shopUser.id}]])">购物车</button>
 			</div>
-			<button>上一页</button>
-			<p>1</p>
-			<p>2</p>
-			<p>3</p>
-			<p>4</p>
-			<p>5</p>
-			<p>6</p>
-			<p>7</p>
-			<button>下一页</button>
-			<p>共7页</p>
+			<button th:if="${pageInfo.pageNum!=1}" th:onclick="prePage([[${pageInfo.prePage}]])">上一页</button>
+			<div th:each="page:${#numbers.sequence(1,pageInfo.pages)}">
+				<a th:href="@{/shop/toShop(page=${page},id=${shopUser.id})}"><p th:text="${page}"></p></a>
+			</div>
+			<button th:if="${pageInfo.pageNum!=pageInfo.pages}" th:onclick="nextPage([[${pageInfo.nextPage}]])">下一页</button>
+			<p>共<span th:text="${pageInfo.pages}"></span>页</p>
 		</div>
-		
+		<script th:inline="javascript">
+			function addToCart(fid){
+				var sid = [[${shopUser.id}]];
+
+				$.ajax({
+					type:"get",
+					url:"/user/addToCart?sid="+sid+"&fid="+fid,
+					dataType:"json",
+					success:function (data){
+						if (data==0){
+							alert("添加失败")
+						}
+						alert("添加成功")
+
+					}
+				})
+			}
+			function nextPage(page) {
+				var sid = [[${shopUser.id}]];
+				window.location.href="/shop/toShop?page="+page+"&id="+sid;
+			}
+			function prePage(page) {
+				var sid = [[${shopUser.id}]];
+				window.location.href="/shop/toShop?page="+page+"&id="+sid;
+			}
+		</script>
 	</body>
 </html>

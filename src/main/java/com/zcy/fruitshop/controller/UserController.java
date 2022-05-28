@@ -1,5 +1,6 @@
 package com.zcy.fruitshop.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.zcy.fruitshop.bean.Fruit;
 import com.zcy.fruitshop.bean.Result;
 import com.zcy.fruitshop.bean.Shop;
@@ -70,15 +71,22 @@ public class UserController {
     }
 
     @GetMapping("/toMyCart")
-    public String toMyCart(@RequestParam("uid") Long uid, Model model){
+    public String toMyCart(@RequestParam("sid") Long sid, Model model,HttpSession session){
 
-        User user = userService.queryUserById(uid);
-        List<Fruit> fruits = fruitService.loadAllFruits();
+        User user = (User)session.getAttribute("user");
+        List<Fruit> fruits = fruitService.getCartFruits(user.getAccountNumber(),sid);
 
         model.addAttribute("fruitList", fruits);
         model.addAttribute("user", user);
 
         return "shopping-cart";
+
+    }
+    @ResponseBody
+    @GetMapping("/addToCart")
+    public int addToCart(@RequestParam("sid") Long sid,@RequestParam("fid") Long fid,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        return fruitService.addToCart(sid, fid, user.getAccountNumber());
 
     }
 
@@ -88,7 +96,8 @@ public class UserController {
 
         User user = userService.queryUserById(accountNumber);
 
-        List<Shop> shopList = shopService.queryAllShop();
+        PageInfo<Shop> pageInfo = shopService.queryAllShop(null,1);
+        List<Shop> shopList = pageInfo.getList();
 
         List<Shop> shops = shopList.stream().filter(shop -> shop.getUserId().equals(user.getAccountNumber())).collect(Collectors.toList());
 

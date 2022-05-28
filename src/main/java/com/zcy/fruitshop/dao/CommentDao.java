@@ -23,4 +23,5 @@ public interface CommentDao {
 
     List<Comment> loadAllComment();
 
+    List<Comment> getCommentByShopId(Long id);
 }

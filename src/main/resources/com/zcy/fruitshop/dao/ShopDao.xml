@@ -74,7 +74,11 @@
     </select>
 
     <select id="queryAllShop" resultMap="shopMap">
-        select * from shop
+        select * from shop <where>
+        <if test="name!=null and name!=''">
+            and name like concat('%', #{name}, '%')
+        </if>
+    </where>
     </select>
 
 </mapper>
